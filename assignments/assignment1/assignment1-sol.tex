@@ -1,0 +1,370 @@
+\documentclass[11pt,a4paper]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlist{leftmargin=2em,itemsep=0.3em}
+
+% 行变换箭头
+\newcommand{\rt}[1]{\xrightarrow{#1}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newenvironment{problem}[1]
+  {\par\medskip\noindent\textbf{#1}\quad}
+  {\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{解}\quad}
+  {\par}
+
+\title{线性代数（MATH1205）第一次作业}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3em}
+
+% ============================================================
+\section*{第 1 题}
+
+\begin{problem}{}写出矩阵 $A=(a_{ij})_{m\times n}$。\end{problem}
+
+\textbf{(1)} $m=n$，$a_{ij}=a_{i,j-1}$，$1\le i,j\le n$。
+
+每个元素都等于它左边的元素，所以每一行的元素都相等：
+\[
+A=\begin{pmatrix}
+a_{11} & a_{11} & \cdots & a_{11}\\
+a_{21} & a_{21} & \cdots & a_{21}\\
+\vdots & \vdots & & \vdots\\
+a_{n1} & a_{n1} & \cdots & a_{n1}
+\end{pmatrix}.
+\]
+
+\textbf{(2)} $a_{ij}=\delta_{i3}\delta_{j2}$ 仅当 $i=3$ 且 $j=2$ 时为 $1$，其余为 $0$：
+\[
+A=\begin{pmatrix}0&0\\0&0\\0&1\end{pmatrix}.
+\]
+
+\textbf{(3)} 主对角线为 $2$，紧邻主对角线的上下两条斜线为 $-1$，其余为 $0$：
+\[
+A=\begin{pmatrix}
+2&-1&0&0\\
+-1&2&-1&0\\
+0&-1&2&-1\\
+0&0&-1&2
+\end{pmatrix}.
+\]
+
+\textbf{(4)} 主对角线及其下方为 $1$，上方为 $0$：
+\[
+A=\begin{pmatrix}
+1&0&0&0\\
+1&1&0&0\\
+1&1&1&0\\
+1&1&1&1
+\end{pmatrix}.
+\]
+
+% ============================================================
+\section*{第 2 题（原题号 3）}
+
+\begin{problem}{}设
+$\begin{pmatrix}a+2b&2a-b\\2c+d&c-2d\end{pmatrix}=\begin{pmatrix}4&-2\\4&-3\end{pmatrix}$，求 $a,b,c,d$。
+\end{problem}
+
+\begin{solution}
+两矩阵相等当且仅当对应元素相等，得
+\[
+\begin{cases}a+2b=4,\\ 2a-b=-2,\end{cases}\qquad
+\begin{cases}2c+d=4,\\ c-2d=-3.\end{cases}
+\]
+由 $2a-b=-2$ 得 $b=2a+2$，代入第一式：$a+4a+4=4$，故 $a=0$，$b=2$。
+
+由 $c-2d=-3$ 得 $c=2d-3$，代入：$4d-6+d=4$，故 $d=2$，$c=1$。
+
+所以 $a=0,\ b=2,\ c=1,\ d=2$。
+\end{solution}
+
+% ============================================================
+\section*{第 3 题（原题号 3）}
+
+\begin{problem}{}用初等行变换把下列矩阵化为简化行阶梯形矩阵。\end{problem}
+
+\textbf{(1)}
+\[
+\begin{pmatrix}1&2&2&-1\\2&3&3&1\\3&4&4&3\end{pmatrix}
+\rt{\substack{r_2-2r_1\\ r_3-3r_1}}
+\begin{pmatrix}1&2&2&-1\\0&-1&-1&3\\0&-2&-2&6\end{pmatrix}
+\rt{r_3-2r_2}
+\begin{pmatrix}1&2&2&-1\\0&-1&-1&3\\0&0&0&0\end{pmatrix}
+\]
+\[
+\rt{(-1)r_2}
+\begin{pmatrix}1&2&2&-1\\0&1&1&-3\\0&0&0&0\end{pmatrix}
+\rt{r_1-2r_2}
+\begin{pmatrix}1&0&0&5\\0&1&1&-3\\0&0&0&0\end{pmatrix}.
+\]
+
+\textbf{(3)}
+\[
+\begin{pmatrix}1&-1&3&-4&3\\3&-3&5&-4&1\\2&-2&3&-2&6\\3&-3&4&-2&-1\end{pmatrix}
+\rt{\substack{r_2-3r_1\\ r_3-2r_1\\ r_4-3r_1}}
+\begin{pmatrix}1&-1&3&-4&3\\0&0&-4&8&-8\\0&0&-3&6&0\\0&0&-5&10&-10\end{pmatrix}
+\rt{-\frac14 r_2}
+\begin{pmatrix}1&-1&3&-4&3\\0&0&1&-2&2\\0&0&-3&6&0\\0&0&-5&10&-10\end{pmatrix}
+\]
+\[
+\rt{\substack{r_3+3r_2\\ r_4+5r_2}}
+\begin{pmatrix}1&-1&3&-4&3\\0&0&1&-2&2\\0&0&0&0&6\\0&0&0&0&0\end{pmatrix}
+\rt{\frac16 r_3}
+\begin{pmatrix}1&-1&3&-4&3\\0&0&1&-2&2\\0&0&0&0&1\\0&0&0&0&0\end{pmatrix}
+\]
+\[
+\rt{\substack{r_1-3r_3\\ r_2-2r_3}}
+\begin{pmatrix}1&-1&3&-4&0\\0&0&1&-2&0\\0&0&0&0&1\\0&0&0&0&0\end{pmatrix}
+\rt{r_1-3r_2}
+\begin{pmatrix}1&-1&0&2&0\\0&0&1&-2&0\\0&0&0&0&1\\0&0&0&0&0\end{pmatrix}.
+\]
+
+% ============================================================
+\section*{第 4 题（原题号 5）}
+
+\begin{problem}{}判断下列线性方程组解的情况（不求解）。\end{problem}
+
+\textbf{(1)} 对增广矩阵作行变换：
+\[
+\left(\begin{array}{ccc|c}2&4&-1&6\\1&-2&1&4\\3&6&2&-1\end{array}\right)
+\rt{r_1\leftrightarrow r_2}
+\left(\begin{array}{ccc|c}1&-2&1&4\\2&4&-1&6\\3&6&2&-1\end{array}\right)
+\rt{\substack{r_2-2r_1\\ r_3-3r_1}}
+\left(\begin{array}{ccc|c}1&-2&1&4\\0&8&-3&-2\\0&12&-1&-13\end{array}\right)
+\]
+\[
+\rt{2r_3-3r_2}
+\left(\begin{array}{ccc|c}1&-2&1&4\\0&8&-3&-2\\0&0&7&-20\end{array}\right).
+\]
+阶梯形中没有形如 $(0\ 0\ 0\mid d)$（$d\ne0$）的矛盾行，且非零行数 $3$ 等于未知量个数 $3$，没有自由未知量，所以方程组\textbf{有唯一解}。
+
+\textbf{(3)} 增广矩阵为 $\left(\begin{array}{cc|c}3&a&3\\a&3&5\end{array}\right)$。把第二行乘以 $3$ 再减去第一行的 $a$ 倍（第二行乘的是非零数 $3$，这是一次合法的初等行变换组合，对任意 $a$ 都成立）：
+\[
+\left(\begin{array}{cc|c}3&a&3\\a&3&5\end{array}\right)
+\rt{3r_2-ar_1}
+\left(\begin{array}{cc|c}3&a&3\\0&9-a^2&15-3a\end{array}\right).
+\]
+方程组无解 $\iff$ 出现矛盾行 $\iff 9-a^2=0$ 且 $15-3a\ne0$。由 $9-a^2=0$ 得 $a=\pm3$，此时 $15-3a=6$ 或 $24$，均不为 $0$。
+
+所以当 $a=3$ 或 $a=-3$ 时方程组无解。（$a\ne\pm3$ 时有唯一解。）
+
+% ============================================================
+\section*{第 5 题（原题号 6）}
+
+\begin{problem}{}用高斯消元法解齐次线性方程组 (2)。\end{problem}
+
+\begin{solution}
+对系数矩阵作行变换：
+\[
+\begin{pmatrix}1&2&1&-1\\3&6&-1&-3\\5&10&1&-5\end{pmatrix}
+\rt{\substack{r_2-3r_1\\ r_3-5r_1}}
+\begin{pmatrix}1&2&1&-1\\0&0&-4&0\\0&0&-4&0\end{pmatrix}
+\rt{\substack{r_3-r_2\\ -\frac14 r_2}}
+\begin{pmatrix}1&2&1&-1\\0&0&1&0\\0&0&0&0\end{pmatrix}
+\rt{r_1-r_2}
+\begin{pmatrix}1&2&0&-1\\0&0&1&0\\0&0&0&0\end{pmatrix}.
+\]
+主元在第 1、3 列，$x_2,x_4$ 为自由未知量，同解方程组为
+\[
+x_1=-2x_2+x_4,\qquad x_3=0.
+\]
+令 $x_2=k_1,\ x_4=k_2$，通解为
+\[
+\begin{pmatrix}x_1\\x_2\\x_3\\x_4\end{pmatrix}
+=k_1\begin{pmatrix}-2\\1\\0\\0\end{pmatrix}+k_2\begin{pmatrix}1\\0\\0\\1\end{pmatrix},
+\qquad k_1,k_2\text{ 为任意常数}.
+\]
+\end{solution}
+
+% ============================================================
+\section*{第 6 题（原题号 7）}
+
+\begin{problem}{}用高斯消元法解下列非齐次线性方程组。\end{problem}
+
+\textbf{(2)}
+\[
+\left(\begin{array}{ccc|c}4&2&-1&2\\3&-1&2&10\\11&3&0&8\end{array}\right)
+\rt{r_1-r_2}
+\left(\begin{array}{ccc|c}1&3&-3&-8\\3&-1&2&10\\11&3&0&8\end{array}\right)
+\rt{\substack{r_2-3r_1\\ r_3-11r_1}}
+\left(\begin{array}{ccc|c}1&3&-3&-8\\0&-10&11&34\\0&-30&33&96\end{array}\right)
+\]
+\[
+\rt{r_3-3r_2}
+\left(\begin{array}{ccc|c}1&3&-3&-8\\0&-10&11&34\\0&0&0&-6\end{array}\right).
+\]
+最后一行对应方程 $0=-6$，矛盾，所以方程组\textbf{无解}。
+
+\textbf{(4)}
+\[
+\left(\begin{array}{cccc|c}2&1&-1&1&1\\4&2&-2&1&2\\2&1&-1&-1&1\end{array}\right)
+\rt{\substack{r_2-2r_1\\ r_3-r_1}}
+\left(\begin{array}{cccc|c}2&1&-1&1&1\\0&0&0&-1&0\\0&0&0&-2&0\end{array}\right)
+\rt{\substack{r_3-2r_2\\ -r_2}}
+\left(\begin{array}{cccc|c}2&1&-1&1&1\\0&0&0&1&0\\0&0&0&0&0\end{array}\right)
+\]
+\[
+\rt{r_1-r_2}
+\left(\begin{array}{cccc|c}2&1&-1&0&1\\0&0&0&1&0\\0&0&0&0&0\end{array}\right)
+\rt{\frac12 r_1}
+\left(\begin{array}{cccc|c}1&\frac12&-\frac12&0&\frac12\\0&0&0&1&0\\0&0&0&0&0\end{array}\right).
+\]
+无矛盾行，主元在第 1、4 列，$x_2,x_3$ 为自由未知量：
+\[
+x_1=\tfrac12-\tfrac12x_2+\tfrac12x_3,\qquad x_4=0.
+\]
+令 $x_2=k_1,\ x_3=k_2$，通解为
+\[
+\begin{pmatrix}x_1\\x_2\\x_3\\x_4\end{pmatrix}
+=\begin{pmatrix}\frac12\\0\\0\\0\end{pmatrix}
++k_1\begin{pmatrix}-\frac12\\1\\0\\0\end{pmatrix}
++k_2\begin{pmatrix}\frac12\\0\\1\\0\end{pmatrix},
+\qquad k_1,k_2\text{ 为任意常数}.
+\]
+
+% ============================================================
+\section*{第 7 题（原题号 8）}
+
+\begin{problem}{}$p,q$ 取何值时，方程组有唯一解、无穷多解、无解？有解时求出所有解。\end{problem}
+
+\textbf{(2)} 对增广矩阵作行变换：
+\[
+\left(\begin{array}{ccc|c}1&2&0&3\\4&7&1&10\\0&1&-1&q\\2&3&p&4\end{array}\right)
+\rt{\substack{r_2-4r_1\\ r_4-2r_1}}
+\left(\begin{array}{ccc|c}1&2&0&3\\0&-1&1&-2\\0&1&-1&q\\0&-1&p&-2\end{array}\right)
+\rt{\substack{r_3+r_2\\ r_4-r_2}}
+\left(\begin{array}{ccc|c}1&2&0&3\\0&-1&1&-2\\0&0&0&q-2\\0&0&p-1&0\end{array}\right)
+\]
+\[
+\rt{r_3\leftrightarrow r_4}
+\left(\begin{array}{ccc|c}1&2&0&3\\0&-1&1&-2\\0&0&p-1&0\\0&0&0&q-2\end{array}\right).
+\]
+\begin{itemize}
+  \item \textbf{$q\ne2$ 时}：第 4 行为 $0=q-2\ne0$，\textbf{无解}（与 $p$ 无关）。
+  \item \textbf{$q=2$，$p\ne1$ 时}：非零行数 $3$ 等于未知量个数，\textbf{有唯一解}。由 $(p-1)x_3=0$ 得 $x_3=0$；由 $-x_2+x_3=-2$ 得 $x_2=2$；由 $x_1+2x_2=3$ 得 $x_1=-1$。唯一解为 $(x_1,x_2,x_3)=(-1,2,0)$。
+  \item \textbf{$q=2$，$p=1$ 时}：第 3、4 行全为零，$x_3$ 为自由未知量，\textbf{有无穷多解}。令 $x_3=k$，则 $x_2=x_3+2=k+2$，$x_1=3-2x_2=-1-2k$，通解为
+  \[
+  \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+  =\begin{pmatrix}-1\\2\\0\end{pmatrix}+k\begin{pmatrix}-2\\1\\1\end{pmatrix},\qquad k\text{ 为任意常数}.
+  \]
+\end{itemize}
+
+\textbf{(4)} 把第三个方程放到第一行，作行变换：
+\[
+\left(\begin{array}{ccc|c}1+p&1&1&0\\1&1+p&1&p\\1&1&1+p&p^2\end{array}\right)
+\rt{r_1\leftrightarrow r_3}
+\left(\begin{array}{ccc|c}1&1&1+p&p^2\\1&1+p&1&p\\1+p&1&1&0\end{array}\right)
+\]
+\[
+\rt{\substack{r_2-r_1\\ r_3-(1+p)r_1}}
+\left(\begin{array}{ccc|c}1&1&1+p&p^2\\0&p&-p&p(1-p)\\0&-p&-p(p+2)&-p^2(1+p)\end{array}\right)
+\rt{r_3+r_2}
+\left(\begin{array}{ccc|c}1&1&1+p&p^2\\0&p&-p&p(1-p)\\0&0&-p(p+3)&-p(p^2+2p-1)\end{array}\right).
+\]
+（其中 $1-(1+p)^2=-p(p+2)$，$p(1-p)-p^2(1+p)=-p(p^2+2p-1)$。）
+\begin{itemize}
+  \item \textbf{$p\ne0$ 且 $p\ne-3$ 时}：三个主元 $1,\ p,\ -p(p+3)$ 均非零，\textbf{有唯一解}。由第 3 行 $x_3=\dfrac{p^2+2p-1}{p+3}$；第 2 行除以 $p$ 得 $x_2-x_3=1-p$，所以
+  \[
+  x_2=1-p+\frac{p^2+2p-1}{p+3}=\frac{2}{p+3};
+  \]
+  由第 1 行
+  \[
+  x_1=p^2-x_2-(1+p)x_3=\frac{p^2(p+3)-2-(p^3+3p^2+p-1)}{p+3}=-\frac{p+1}{p+3}.
+  \]
+  唯一解为
+  \[
+  x_1=-\frac{p+1}{p+3},\qquad x_2=\frac{2}{p+3},\qquad x_3=\frac{p^2+2p-1}{p+3}.
+  \]
+  \item \textbf{$p=0$ 时}：阶梯形为 $\left(\begin{array}{ccc|c}1&1&1&0\\0&0&0&0\\0&0&0&0\end{array}\right)$，\textbf{有无穷多解}。$x_2,x_3$ 自由，$x_1=-x_2-x_3$，通解为
+  \[
+  \begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix}
+  =k_1\begin{pmatrix}-1\\1\\0\end{pmatrix}+k_2\begin{pmatrix}-1\\0\\1\end{pmatrix},\qquad k_1,k_2\text{ 为任意常数}.
+  \]
+  \item \textbf{$p=-3$ 时}：第 3 行为 $\bigl(0\ \ 0\ \ 0\mid -(-3)(9-6-1)\bigr)=(0\ \ 0\ \ 0\mid 6)$，即 $0=6$，\textbf{无解}。
+\end{itemize}
+（本小题中不含 $q$，结论只与 $p$ 有关。）
+
+% ============================================================
+\section*{第 8 题（原题号 9）}
+
+\begin{problem}{}令 $\Q(\sqrt3)=\{a+b\sqrt3\mid a,b\in\Q\}$，试证 $\Q(\sqrt3)$ 是一个数域。\end{problem}
+
+\begin{proof}
+显然 $\Q(\sqrt3)\subseteq\mathbb C$，且 $1=1+0\cdot\sqrt3\in\Q(\sqrt3)$（同理 $0=0+0\cdot\sqrt3\in\Q(\sqrt3)$）。
+下面验证它对加、减、乘、除（除数非零）封闭。设 $\alpha=a+b\sqrt3,\ \beta=c+d\sqrt3\in\Q(\sqrt3)$，$a,b,c,d\in\Q$。
+
+\textbf{加减法：}$\alpha\pm\beta=(a\pm c)+(b\pm d)\sqrt3$，而 $a\pm c,\ b\pm d\in\Q$，故 $\alpha\pm\beta\in\Q(\sqrt3)$。
+
+\textbf{乘法：}$\alpha\beta=(ac+3bd)+(ad+bc)\sqrt3$，而 $ac+3bd,\ ad+bc\in\Q$，故 $\alpha\beta\in\Q(\sqrt3)$。
+
+\textbf{除法：}设 $\alpha\ne0$。先证 $a-b\sqrt3\ne0$：若 $a-b\sqrt3=0$，当 $b\ne0$ 时 $\sqrt3=a/b\in\Q$，与 $\sqrt3$ 是无理数矛盾；当 $b=0$ 时 $a=0$，于是 $\alpha=0$，也矛盾。因此
+\[
+a^2-3b^2=(a+b\sqrt3)(a-b\sqrt3)\ne0,\qquad a^2-3b^2\in\Q.
+\]
+于是
+\[
+\frac{\beta}{\alpha}=\frac{(c+d\sqrt3)(a-b\sqrt3)}{(a+b\sqrt3)(a-b\sqrt3)}
+=\frac{ac-3bd}{a^2-3b^2}+\frac{ad-bc}{a^2-3b^2}\sqrt3,
+\]
+两个系数都是有理数，故 $\beta/\alpha\in\Q(\sqrt3)$。
+
+综上，$\Q(\sqrt3)$ 包含 $1$ 且对四则运算封闭，所以是一个数域。
+\end{proof}
+
+% ============================================================
+\section*{第 9 题（原题号 11）}
+
+\begin{problem}{}证明任何一个数域必包含有理数域。\end{problem}
+
+\begin{proof}
+设 $F$ 是任意一个数域，则 $1\in F$，且 $F$ 对四则运算封闭。
+
+\textbf{(i) $0\in F$：}$0=1-1\in F$。
+
+\textbf{(ii) 正整数属于 $F$：}对 $n$ 归纳。$n=1$ 时 $1\in F$；若 $n\in F$，则 $n+1\in F$（加法封闭）。故所有正整数 $n\in F$。
+
+\textbf{(iii) 负整数属于 $F$：}对正整数 $n$，$-n=0-n\in F$（减法封闭）。
+
+所以 $\mathbb Z\subseteq F$。
+
+\textbf{(iv) 有理数属于 $F$：}任一有理数可写成 $\dfrac pq$，其中 $p,q\in\mathbb Z$，$q\ne0$。由 (iii) 知 $p,q\in F$，且 $q\ne0$，由除法封闭得 $\dfrac pq\in F$。
+
+因此 $\Q\subseteq F$，即任何数域都包含有理数域。
+\end{proof}
+
+% ============================================================
+\section*{第 10 题（原题号 15）}
+
+\begin{problem}{}$m\times n$ 的非齐次线性方程组，设其系数矩阵的阶梯形的非零行数为 $s$，分别在 (1) $s=n$；(2) $s=m$ 两种条件下判断此方程组的解。\end{problem}
+
+\begin{solution}
+对增广矩阵 $(A\mid b)$ 作初等行变换化为阶梯形，其中系数部分是 $A$ 的阶梯形，有 $s$ 个非零行，从而有 $s$ 个主元（主元未知量），自由未知量个数为 $n-s$。显然 $s\le\min\{m,n\}$。
+方程组有解 $\iff$ 阶梯形中不出现形如 $(0\ \cdots\ 0\mid d)$、$d\ne0$ 的矛盾行。
+
+\textbf{(1) $s=n$（此时 $n\le m$）。}自由未知量个数 $n-s=0$。
+\begin{itemize}
+  \item 若 $s<m$，系数部分后 $m-s$ 行全为零，对应的常数项可能非零：若其中某个常数项 $d\ne0$，则\textbf{无解}；若全为零，则\textbf{有唯一解}。
+  \item 若 $s=m$（即 $m=n$），不存在全零的系数行，不可能出现矛盾行，方程组\textbf{有唯一解}。
+\end{itemize}
+所以 $s=n$ 时，方程组\textbf{或者无解，或者有唯一解}，不可能有无穷多解；当 $m=n$ 时必有唯一解。
+
+\textbf{(2) $s=m$（此时 $m\le n$）。}系数矩阵阶梯形的每一行都非零，每行都有主元，因此增广矩阵的阶梯形中不可能出现 $(0\ \cdots\ 0\mid d)$、$d\ne0$ 的矛盾行，方程组\textbf{一定有解}。进一步：
+\begin{itemize}
+  \item 若 $m=n$，自由未知量个数为 $0$，\textbf{有唯一解}；
+  \item 若 $m<n$，自由未知量个数为 $n-m>0$，\textbf{有无穷多解}。
+\end{itemize}
+\end{solution}
+
+\end{document}
