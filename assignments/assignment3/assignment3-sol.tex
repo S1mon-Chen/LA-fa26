@@ -1,0 +1,164 @@
+\documentclass[11pt,a4paper]{ctexart}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{mathtools}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlist{leftmargin=2em,itemsep=0.3em}
+
+\newenvironment{problem}[1]
+  {\par\medskip\noindent\textbf{#1}\quad}
+  {\par}
+\newenvironment{solution}
+  {\par\noindent\textbf{解}\quad}
+  {\par}
+\renewcommand{\proofname}{证明}
+
+\title{线性代数（MATH1205）第三次作业}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3em}
+
+% ============================================================
+\section*{第 1 题（原题号 13）}
+
+\begin{problem}{}设 $A$ 为 $n$ 阶矩阵，且对任意 $n\times1$ 矩阵 $\alpha$，都有 $\alpha^{\mathrm T}A\alpha=0$，证明：$A$ 为反对称矩阵。\end{problem}
+
+\begin{proof}
+设 $A=(a_{ij})_{n\times n}$，记 $e_i$ 为第 $i$ 个分量为 $1$、其余分量为 $0$ 的 $n\times1$ 矩阵。
+对任意 $n\times n$ 矩阵 $M=(m_{ij})$，有
+\[
+e_i^{\mathrm T}Me_j=m_{ij}.
+\]
+
+\textbf{(i) 对角元为零。} 取 $\alpha=e_i$，由条件
+\[
+0=e_i^{\mathrm T}Ae_i=a_{ii},\qquad i=1,\dots,n.
+\]
+
+\textbf{(ii) 对称位置的元素互为相反数。} 设 $i\neq j$，取 $\alpha=e_i+e_j$，由条件并展开
+\[
+0=(e_i+e_j)^{\mathrm T}A(e_i+e_j)
+=e_i^{\mathrm T}Ae_i+e_i^{\mathrm T}Ae_j+e_j^{\mathrm T}Ae_i+e_j^{\mathrm T}Ae_j
+=a_{ii}+a_{ij}+a_{ji}+a_{jj}.
+\]
+由 (i) 知 $a_{ii}=a_{jj}=0$，故 $a_{ij}+a_{ji}=0$，即 $a_{ji}=-a_{ij}$。
+
+综合 (i)(ii)，对所有 $i,j$ 都有 $a_{ji}=-a_{ij}$（$i=j$ 时即 $a_{ii}=0=-a_{ii}$），亦即
+\[
+A^{\mathrm T}=-A,
+\]
+所以 $A$ 为反对称矩阵。
+\end{proof}
+
+% ============================================================
+\section*{第 2 题}
+
+\begin{problem}{}设 $A$ 是反对称矩阵，$B$ 是对称矩阵，证明：
+\begin{enumerate}[label=(\arabic*)]
+  \item $A^2$ 是对称矩阵；
+  \item $AB-BA$ 是对称矩阵；
+  \item $AB$ 为反对称矩阵的充分必要条件是 $AB=BA$。
+\end{enumerate}
+\end{problem}
+
+（题中 $A,B$ 应理解为同阶方阵，否则 $AB$ 与 $BA$ 不能同时有意义。）
+由已知 $A^{\mathrm T}=-A$，$B^{\mathrm T}=B$。下面反复使用转置的运算律
+$(XY)^{\mathrm T}=Y^{\mathrm T}X^{\mathrm T}$ 与 $(X\pm Y)^{\mathrm T}=X^{\mathrm T}\pm Y^{\mathrm T}$。
+
+\begin{proof}[(1) 的证明]
+\[
+(A^2)^{\mathrm T}=(AA)^{\mathrm T}=A^{\mathrm T}A^{\mathrm T}=(-A)(-A)=A^2,
+\]
+所以 $A^2$ 是对称矩阵。
+\end{proof}
+
+\begin{proof}[(2) 的证明]
+\[
+(AB-BA)^{\mathrm T}=(AB)^{\mathrm T}-(BA)^{\mathrm T}
+=B^{\mathrm T}A^{\mathrm T}-A^{\mathrm T}B^{\mathrm T}
+=B(-A)-(-A)B
+=AB-BA,
+\]
+所以 $AB-BA$ 是对称矩阵。
+\end{proof}
+
+\begin{proof}[(3) 的证明]
+先计算
+\[
+(AB)^{\mathrm T}=B^{\mathrm T}A^{\mathrm T}=B(-A)=-BA.
+\]
+于是
+\[
+AB\ \text{为反对称矩阵}
+\iff (AB)^{\mathrm T}=-AB
+\iff -BA=-AB
+\iff AB=BA.
+\]
+上面每一步都是等价变形，故 $AB$ 为反对称矩阵的充分必要条件是 $AB=BA$。
+\end{proof}
+
+% ============================================================
+\section*{第 3 题}
+
+\begin{problem}{}计算下列行列式。\end{problem}
+
+\textbf{(1)} $\begin{vmatrix}6&9\\8&12\end{vmatrix}$。
+
+\begin{solution}
+由二阶行列式定义（主对角线乘积减副对角线乘积），
+\[
+\begin{vmatrix}6&9\\8&12\end{vmatrix}=6\times12-9\times8=72-72=0.
+\]
+\end{solution}
+
+\textbf{(2)} $\begin{vmatrix}1&2&3\\2&3&1\\3&1&2\end{vmatrix}$。
+
+\begin{solution}
+由三阶行列式的对角线法则，
+\[
+\begin{aligned}
+\begin{vmatrix}1&2&3\\2&3&1\\3&1&2\end{vmatrix}
+&=1\cdot3\cdot2+2\cdot1\cdot3+3\cdot2\cdot1-3\cdot3\cdot3-2\cdot2\cdot2-1\cdot1\cdot1\\
+&=6+6+6-27-8-1=-18.
+\end{aligned}
+\]
+（验算：按第一行展开，
+$1\cdot\begin{vmatrix}3&1\\1&2\end{vmatrix}
+-2\cdot\begin{vmatrix}2&1\\3&2\end{vmatrix}
++3\cdot\begin{vmatrix}2&3\\3&1\end{vmatrix}
+=1\cdot5-2\cdot1+3\cdot(-7)=-18$。）
+\end{solution}
+
+\textbf{(3)} $\begin{vmatrix}5&0&0&0&0\\0&0&0&3&0\\0&0&2&0&0\\0&0&0&0&4\\0&1&0&0&0\end{vmatrix}$。
+
+\begin{solution}
+由行列式定义，
+\[
+D=\sum_{j_1j_2j_3j_4j_5}(-1)^{\tau(j_1j_2j_3j_4j_5)}a_{1j_1}a_{2j_2}a_{3j_3}a_{4j_4}a_{5j_5},
+\]
+其中 $\tau(\cdot)$ 表示排列的逆序数。该行列式每一行恰有一个非零元：
+\[
+a_{11}=5,\quad a_{24}=3,\quad a_{33}=2,\quad a_{45}=4,\quad a_{52}=1.
+\]
+一般项 $a_{1j_1}a_{2j_2}\cdots a_{5j_5}$ 只要有一个因子取到所在行的零元，该项就为零；
+因此要使该项非零，必须 $j_1=1,\ j_2=4,\ j_3=3,\ j_4=5,\ j_5=2$。
+这恰好是 $1,2,3,4,5$ 的一个排列，所以和式中只有列标排列为 $14352$ 的一项非零。
+
+计算逆序数：在排列 $14352$ 中，构成逆序的数对为
+\[
+(4,3),\quad(4,2),\quad(3,2),\quad(5,2),
+\]
+共 $4$ 个，即 $\tau(14352)=4$，为偶排列。于是
+\[
+D=(-1)^{4}\,a_{11}a_{24}a_{33}a_{45}a_{52}=5\times3\times2\times4\times1=120.
+\]
+\end{solution}
+
+\end{document}
