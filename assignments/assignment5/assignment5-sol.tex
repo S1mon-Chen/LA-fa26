@@ -1,0 +1,245 @@
+% 使用 XeLaTeX 编译；中文采用 TeX Live 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第五次作业},pdfsubject={MATH1205：逆矩阵、伴随矩阵与矩阵幂}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.08}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第五次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.2ex,afterskip=0.7ex},
+subsection={format=\normalsize\bfseries,beforeskip=0.9ex,afterskip=0.5ex}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\E}{E}
+\newcommand{\problem}[1]{\Needspace{9\baselineskip}\section*{#1}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries 线性代数第五次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.5em}
+以下 $E$ 表示相应阶数的单位矩阵，$O$ 表示零矩阵，$A^*$ 表示 $A$ 的伴随矩阵。
+题号沿用原题。
+
+\problem{第 24 题：解含伴随矩阵的矩阵方程}
+已知
+\[
+A^*BA=2BA-8E,\qquad
+A=\begin{pmatrix}1&2&-2\\0&-2&4\\0&0&1\end{pmatrix}.
+\]
+因为 $|A|=1\cdot(-2)\cdot1=-2\ne0$，所以 $A$ 可逆，且 $AA^*=-2E$。
+在原式两端左乘 $A$，得
+\[
+-2BA=2ABA-8A.
+\]
+再在两端右乘 $A^{-1}$，整理得
+\[
+-2B=2AB-8E,\qquad (A+E)B=4E.
+\]
+而
+\[
+A+E=\begin{pmatrix}2&2&-2\\0&-1&4\\0&0&2\end{pmatrix},
+\qquad |A+E|=-4\ne0.
+\]
+对 $(A+E)B=4E$ 的各列从最后一行向上回代，得到原方程的唯一解
+\[
+\ans{B=4(A+E)^{-1}=
+\begin{pmatrix}2&4&-6\\0&-4&8\\0&0&2\end{pmatrix}}.
+\]
+上述各步均为等价变形，且 $(A+E)B=4E$，故所得 $B$ 满足原方程。
+
+\problem{第 25 题：求逆矩阵}
+\subsection*{(2)}
+记
+\[
+R=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}.
+\]
+由 $\cos^2\theta+\sin^2\theta=1$，直接相乘可得
+\[
+R\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}
+=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
+\]
+故对任意实数 $\theta$，都有
+\[
+\ans{R^{-1}=\begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}}.
+\]
+
+\newpage
+\section*{第 25 题（续）}
+\subsection*{(4)}
+设
+\[
+U=\begin{pmatrix}
+1&a&a^2&a^3\\0&1&a&a^2\\0&0&1&a\\0&0&0&1
+\end{pmatrix},\qquad
+V=\begin{pmatrix}
+1&-a&0&0\\0&1&-a&0\\0&0&1&-a\\0&0&0&1
+\end{pmatrix}.
+\]
+记 $U$ 的各列为 $C_1,C_2,C_3,C_4$，标准单位列向量为 $e_1,\ldots,e_4$。
+则
+\[
+UV=(C_1,\ C_2-aC_1,\ C_3-aC_2,\ C_4-aC_3)
+=(e_1,e_2,e_3,e_4)=E.
+\]
+所以 $\ans{U^{-1}=V}$。此式在题设 $a\ne0$ 时成立；实际上 $a=0$ 时同样成立。
+
+\problem{第 28 题：利用相似关系计算矩阵幂}
+已知
+\[
+A=\begin{pmatrix}1&0&0\\2&-1&0\\2&1&1\end{pmatrix},\qquad
+B=\begin{pmatrix}1&0&0\\0&0&0\\0&0&-1\end{pmatrix},
+\qquad XA=AB.
+\]
+\subsection*{(1) 证明 $X^n=AB^nA^{-1}$}
+由于 $|A|=-1\ne0$，在 $XA=AB$ 两端右乘 $A^{-1}$，得 $X=ABA^{-1}$。
+对正整数 $n$ 用数学归纳法。$n=1$ 时结论成立。
+若 $X^m=AB^mA^{-1}$，则
+\[
+X^{m+1}=X^mX
+=AB^mA^{-1}ABA^{-1}
+=AB^m(A^{-1}A)BA^{-1}
+=AB^{m+1}A^{-1}.
+\]
+故
+\[
+\ans{X^n=AB^nA^{-1}\qquad(n\ge1)}.
+\]
+
+\Needspace{14\baselineskip}
+\subsection*{(2) 求 $X^5$}
+因为 $B$ 为对角矩阵，
+\[
+B^5=\operatorname{diag}(1^5,0^5,(-1)^5)
+=\operatorname{diag}(1,0,-1)=B.
+\]
+又由直接计算可得
+\[
+A^{-1}=\begin{pmatrix}1&0&0\\2&-1&0\\-4&1&1\end{pmatrix},
+\qquad
+AB=\begin{pmatrix}1&0&0\\2&0&0\\2&0&-1\end{pmatrix}.
+\]
+因此
+\[
+\ans{X^5=ABA^{-1}
+=\begin{pmatrix}1&0&0\\2&0&0\\2&0&-1\end{pmatrix}
+ \begin{pmatrix}1&0&0\\2&-1&0\\-4&1&1\end{pmatrix}
+=\begin{pmatrix}1&0&0\\2&0&0\\6&-1&-1\end{pmatrix}}.
+\]
+
+\newpage
+\problem{第 29 题：由逆矩阵求原矩阵及其伴随矩阵}
+记
+\[
+C=A^{-1}=\begin{pmatrix}3&-1&1\\1&1&0\\2&1&1\end{pmatrix}.
+\]
+按第一行展开得
+\[
+|C|=3(1\cdot1-0\cdot1)
+-(-1)(1\cdot1-0\cdot2)+(1\cdot1-1\cdot2)=3.
+\]
+计算 $C$ 的各代数余子式并转置，利用 $C^{-1}=C^*/|C|$，得
+\[
+\ans{A=C^{-1}=\frac13
+\begin{pmatrix}1&2&-1\\-1&1&1\\-1&-5&4\end{pmatrix}},
+\qquad |A|=\frac1{|C|}=\frac13.
+\]
+利用 $A^*=|A|A^{-1}$，得
+\[
+\ans{A^*=\frac13
+\begin{pmatrix}3&-1&1\\1&1&0\\2&1&1\end{pmatrix}}.
+\]
+由于 $A^*=\frac13 C$，所以
+\[
+\ans{(A^*)^{-1}=3C^{-1}=3A
+=\begin{pmatrix}1&2&-1\\-1&1&1\\-1&-5&4\end{pmatrix}}.
+\]
+又因 $A^*$ 为三阶矩阵，
+\[
+|A^*|=\left|\frac13 C\right|
+=\left(\frac13\right)^3|C|=\frac19.
+\]
+从而
+\[
+\ans{(A^*)^*=|A^*|(A^*)^{-1}
+=\frac19\begin{pmatrix}1&2&-1\\-1&1&1\\-1&-5&4\end{pmatrix}}.
+\]
+
+\problem{第 31 题：证明 $A-E$ 可逆并求其逆}
+已知 $A^2=2A$，于是
+\[
+(A-E)(A-E)=A^2-2A+E=2A-2A+E=E.
+\]
+根据逆矩阵的定义，$A-E$ 可逆，且
+\[
+\ans{(A-E)^{-1}=A-E}.
+\]
+
+\newpage
+\problem{第 33 题：证明 $A^*$ 不可逆}
+设 $A$ 为 $n$ 阶方阵，$n\ge2$，且 $A^2=2A$、$A\ne2E$。
+
+先证明 $A$ 不可逆。若 $A$ 可逆，则在 $A^2=2A$ 两端左乘 $A^{-1}$，得到
+$A=2E$，与条件矛盾。因此 $|A|=0$，由伴随矩阵恒等式可得
+\[
+AA^*=|A|E=O.
+\]
+若 $A^*$ 可逆，则在上式两端右乘 $(A^*)^{-1}$，得到 $A=O$。
+此时因 $n\ge2$，$A$ 的每个余子式都是至少一阶的零矩阵的行列式，均为零，
+从而 $A^*=O$，与 $A^*$ 可逆矛盾。因此
+\[
+\ans{A^*\text{ 不可逆}}.
+\]
+
+\problem{第 35 题：幂零矩阵的有限几何级数}
+已知 $A^k=O$，其中 $k$ 为正整数。令
+\[
+S=E+A+A^2+\cdots+A^{k-1}.
+\]
+直接计算得
+\begin{align*}
+(E-A)S
+&=(E+A+\cdots+A^{k-1})-(A+A^2+\cdots+A^k)\\
+&=E-A^k=E,\\
+S(E-A)
+&=(E+A+\cdots+A^{k-1})-(A+A^2+\cdots+A^k)\\
+&=E-A^k=E.
+\end{align*}
+所以 $E-A$ 可逆，且
+\[
+\ans{(E-A)^{-1}=E+A+A^2+\cdots+A^{k-1}}.
+\]
+当 $k=1$ 时，$A=O$，右端的和仅有 $E$ 一项，结论仍成立。
+
+\problem{第 38 题：计算伴随矩阵及矩阵组合的行列式}
+已知 $A$ 是五阶矩阵，且 $|A|=\frac12\ne0$，故 $A$ 可逆，
+\[
+A^*=|A|A^{-1}=\frac12A^{-1},\qquad |A^{-1}|=2.
+\]
+因此
+\[
+\ans{|A^*|=\left|\frac12A^{-1}\right|
+=\left(\frac12\right)^5\cdot2=\frac1{16}}.
+\]
+另一方面，
+\[
+(2A)^{-1}+3A^*
+=\frac12A^{-1}+3\cdot\frac12A^{-1}
+=2A^{-1}.
+\]
+再取行列式，得
+\[
+\ans{\left|(2A)^{-1}+3A^*\right|
+=|2A^{-1}|=2^5|A^{-1}|=64}.
+\]
+\end{document}
