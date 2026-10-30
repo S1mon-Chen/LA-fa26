@@ -1,0 +1,212 @@
+% 使用 XeLaTeX 编译；中文采用 TeX Live 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.05cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{mathdots}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第六次作业},pdfsubject={MATH1205：分块矩阵的乘法与求逆}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.22em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第六次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.2ex,afterskip=0.6ex},
+subsection={format=\normalsize\bfseries,beforeskip=0.9ex,afterskip=0.4ex}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\problem}[1]{\Needspace{8\baselineskip}\section*{#1}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries 线性代数第六次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.4em}
+题号沿用原题。$E_k$ 表示 $k$ 阶单位矩阵，$O$ 表示相应尺寸的零块。
+
+\problem{第 40 题 (2)：分块计算矩阵乘积}
+将题中两矩阵分别记为 $A,B$，按下式分块：
+\[
+A=\left(\begin{array}{cc|cc}
+1&-1&0&0\\
+3&-1&0&0\\
+0&1&0&0\\ \hline
+0&0&2&-1
+\end{array}\right)
+=\begin{pmatrix}C&O\\O&D\end{pmatrix},\qquad
+B=\left(\begin{array}{c|ccc}
+1&0&0&0\\
+-1&0&0&0\\ \hline
+0&1&3&-1\\
+0&2&1&4
+\end{array}\right)
+=\begin{pmatrix}F&O\\O&G\end{pmatrix}.
+\]
+$A$ 的列分块与 $B$ 的行分块均为 $2+2$，因此可以作分块乘法。两个非零乘积为
+\[
+CF=\begin{pmatrix}1&-1\\3&-1\\0&1\end{pmatrix}
+\begin{pmatrix}1\\-1\end{pmatrix}
+=\begin{pmatrix}2\\4\\-1\end{pmatrix},\qquad
+DG=\begin{pmatrix}2&-1\end{pmatrix}
+\begin{pmatrix}1&3&-1\\2&1&4\end{pmatrix}
+=\begin{pmatrix}0&5&-6\end{pmatrix}.
+\]
+故
+\[
+\ans{AB=\begin{pmatrix}CF&O\\O&DG\end{pmatrix}
+=\begin{pmatrix}
+2&0&0&0\\4&0&0&0\\-1&0&0&0\\0&0&5&-6
+\end{pmatrix}}.
+\]
+
+\problem{第 41 题：利用分块矩阵求逆}
+\subsection*{(1)}
+原矩阵可写成
+\[
+M_1=\diag(P,2,Q),\qquad
+P=\begin{pmatrix}2&3\\-3&-5\end{pmatrix},\quad
+Q=\begin{pmatrix}8&5\\3&2\end{pmatrix}.
+\]
+因 $|P|=-1\ne0$、$|Q|=1\ne0$，有
+\[
+P^{-1}=\begin{pmatrix}5&3\\-3&-2\end{pmatrix},
+\qquad
+Q^{-1}=\begin{pmatrix}2&-5\\-3&8\end{pmatrix}.
+\]
+块对角矩阵逐块求逆，得到
+\[
+\ans{M_1^{-1}=\diag\left(P^{-1},\frac12,Q^{-1}\right)
+=\begin{pmatrix}
+5&3&0&0&0\\
+-3&-2&0&0&0\\
+0&0&\frac12&0&0\\
+0&0&0&2&-5\\
+0&0&0&-3&8
+\end{pmatrix}}.
+\]
+由分块乘法，$M_1M_1^{-1}=M_1^{-1}M_1=\diag(E_2,1,E_2)=E_5$。
+
+\newpage
+\section*{第 41 题（续）}
+\subsection*{(2)}
+按行 $2+3$、列 $3+2$ 分块，得
+\[
+M_2=\left(\begin{array}{ccc|cc}
+0&0&0&1&2\\
+0&0&0&2&3\\ \hline
+1&1&0&0&0\\
+0&1&1&0&0\\
+0&0&1&0&0
+\end{array}\right)
+=\begin{pmatrix}O_{2\times3}&R\\S&O_{3\times2}\end{pmatrix},
+\]
+其中
+\[
+R=\begin{pmatrix}1&2\\2&3\end{pmatrix},\qquad
+S=\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}.
+\]
+$|R|=-1\ne0$，由二阶矩阵求逆公式得
+\[
+R^{-1}=\begin{pmatrix}-3&2\\2&-1\end{pmatrix}.
+\]
+又令
+\[
+N=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix},
+\]
+则 $S=E_3+N$、$N^3=O$，故
+\[
+S^{-1}=E_3-N+N^2
+=\begin{pmatrix}1&-1&1\\0&1&-1\\0&0&1\end{pmatrix}.
+\]
+注意逆矩阵的行、列分块分别为 $3+2$、$2+3$。取
+\[
+X=\begin{pmatrix}O_{3\times2}&S^{-1}\\R^{-1}&O_{2\times3}\end{pmatrix},
+\]
+由分块乘法，
+\[
+M_2X=\begin{pmatrix}RR^{-1}&O\\O&SS^{-1}\end{pmatrix}=E_5,
+\qquad
+XM_2=\begin{pmatrix}S^{-1}S&O\\O&R^{-1}R\end{pmatrix}=E_5.
+\]
+因此
+\[
+\ans{M_2^{-1}=
+\begin{pmatrix}
+0&0&1&-1&1\\
+0&0&0&1&-1\\
+0&0&0&0&1\\
+-3&2&0&0&0\\
+2&-1&0&0&0
+\end{pmatrix}}.
+\]
+
+\newpage
+\problem{第 55 题：利用分块技巧求逆}
+\subsection*{(1)}
+记题中循环排列的矩阵为 $T$。令 $D=\diag(a_2,\ldots,a_n)$，
+按行 $(n-1)+1$、列 $1+(n-1)$ 分块，则
+\[
+T=\begin{pmatrix}O_{(n-1)\times1}&D\\a_1&O_{1\times(n-1)}\end{pmatrix}.
+\]
+因为所有 $a_i\ne0$，所以 $D$ 和标量块 $a_1$ 均可逆。利用上述分块乘法可得
+\[
+\ans{T^{-1}=
+\begin{pmatrix}O_{1\times(n-1)}&a_1^{-1}\\D^{-1}&O_{(n-1)\times1}\end{pmatrix}
+=\begin{pmatrix}
+0&0&\cdots&0&\frac1{a_1}\\
+\frac1{a_2}&0&\cdots&0&0\\
+0&\frac1{a_3}&\cdots&0&0\\
+\vdots&\ddots&\ddots&\vdots&\vdots\\
+0&\cdots&0&\frac1{a_n}&0
+\end{pmatrix}}.
+\]
+确有 $TT^{-1}=\diag(DD^{-1},1)=E_n$，
+$T^{-1}T=\diag(1,D^{-1}D)=E_n$。
+
+\Needspace{10\baselineskip}
+\subsection*{(2)}
+记原矩阵为 $K=\left(\begin{smallmatrix}O&A_1\\A_2&O\end{smallmatrix}\right)$。
+其中 $A_1$ 的反对角线自右上至左下依次为 $a_1,\ldots,a_n$，其余元素为零，
+且 $A_2=\diag(a_{n+1},\ldots,a_{2n})$。
+
+令 $D_1=\diag(a_1,\ldots,a_n)$，$J$ 为倒序置换矩阵，即
+$J_{i,n+1-i}=1$，其余元素为零。则 $J^2=E_n$、$A_1=D_1J$，从而
+\[
+A_1^{-1}=(D_1J)^{-1}=JD_1^{-1}
+=\begin{pmatrix}
+0&\cdots&0&\frac1{a_n}\\
+0&\cdots&\frac1{a_{n-1}}&0\\
+\vdots&\iddots&\vdots&\vdots\\
+\frac1{a_1}&\cdots&0&0
+\end{pmatrix},
+\]
+即反对角线自右上至左下的系数依次为 $a_n^{-1},a_{n-1}^{-1},\ldots,a_1^{-1}$。
+同时有
+\[
+A_2^{-1}=\diag\left(\frac1{a_{n+1}},\ldots,\frac1{a_{2n}}\right).
+\]
+因所有 $a_i\ne0$，以上逆矩阵均存在。取
+$Y=\left(\begin{smallmatrix}O&A_2^{-1}\\A_1^{-1}&O\end{smallmatrix}\right)$，
+由分块乘法，
+\[
+KY=\begin{pmatrix}A_1A_1^{-1}&O\\O&A_2A_2^{-1}\end{pmatrix}=E_{2n},
+\qquad
+YK=\begin{pmatrix}A_2^{-1}A_2&O\\O&A_1^{-1}A_1\end{pmatrix}=E_{2n}.
+\]
+因此所求逆矩阵为
+\[
+\ans{K^{-1}=
+\begin{pmatrix}
+O&\diag\left(a_{n+1}^{-1},\ldots,a_{2n}^{-1}\right)\\[2pt]
+JD_1^{-1}&O
+\end{pmatrix}}.
+\]
+
+\end{document}
