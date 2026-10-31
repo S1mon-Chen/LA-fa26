@@ -1,0 +1,326 @@
+% 编译：xelatex -halt-on-error assignment7-sol.tex（运行两遍）。
+% 中文使用 TeX Live 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.05cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第七次作业},pdfsubject={MATH1205：矩阵的秩、初等变换与矩阵方程}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.2em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.08}
+\linespread{1.15}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第七次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.2ex,afterskip=0.5ex},
+subsection={format=\normalsize\bfseries,beforeskip=0.9ex,afterskip=0.4ex}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\problem}[1]{\Needspace{8\baselineskip}\section*{#1}}
+\newcommand{\parttitle}[1]{\Needspace{7\baselineskip}\subsection*{#1}}
+
+\begin{document}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}
+\begin{center}
+{\LARGE\bfseries 线性代数第七次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.4em}
+题号沿用原题。$E_k$ 表示 $k$ 阶单位矩阵，$r_i$ 表示矩阵的第 $i$ 行。
+
+\problem{第 45 题：参数与矩阵的秩}
+题中
+\[
+A=\begin{pmatrix}
+1&a&a&a\\a&1&a&a\\a&a&1&a\\a&a&a&1
+\end{pmatrix}.
+\]
+在 $|A|$ 中把其余各列加到第一列，提出第一列的公因子 $1+3a$，
+再把第一行分别从其余三行中减去，得
+\[
+|A|=(1+3a)
+\begin{vmatrix}
+1&a&a&a\\1&1&a&a\\1&a&1&a\\1&a&a&1
+\end{vmatrix}
+=(1+3a)
+\begin{vmatrix}
+1&a&a&a\\0&1-a&0&0\\0&0&1-a&0\\0&0&0&1-a
+\end{vmatrix}
+=(1+3a)(1-a)^3.
+\]
+\textbf{(1)} $A$ 可逆当且仅当 $|A|\ne0$，故
+\[
+\ans{a\ne1\quad\text{且}\quad a\ne-\frac13}.
+\]
+\textbf{(2)} 秩为 $3$ 必有 $|A|=0$，只需考察 $a=1,-\frac13$。
+当 $a=1$ 时，$A$ 是全 $1$ 矩阵，秩为 $1$；当 $a=-\frac13$ 时，
+原矩阵前 $3$ 行、前 $3$ 列构成的子式为
+\[
+\begin{vmatrix}
+1&-\frac13&-\frac13\\
+-\frac13&1&-\frac13\\
+-\frac13&-\frac13&1
+\end{vmatrix}=\frac{16}{27}\ne0.
+\]
+因此此时 $\rk A=3$，所以 $\ans{a=-\frac13}$。
+
+\textbf{(3)} 由以上讨论，其余参数值的秩均为 $4$ 或 $3$，故
+$\ans{\rk A=1\iff a=1}$。
+
+\problem{第 47 题：用定义求秩}
+\parttitle{(3)}
+设
+\[
+B=\begin{pmatrix}
+1&2&3&4&5\\0&0&-1&-2&-3\\0&0&0&0&4\\0&0&1&2&-1
+\end{pmatrix}.
+\]
+取第 $1,2,3$ 行与第 $1,3,5$ 列，得到三阶子式
+\[
+\begin{vmatrix}1&3&5\\0&-1&-3\\0&0&4\end{vmatrix}=-4\ne0.
+\]
+又因 $r_2+r_3+r_4=0$，任取四列所得的四阶子式中，仍有上述行关系，
+故所有四阶子式均为零；更高阶子式不存在。由秩的定义，$\ans{\rk B=3}$。
+
+\newpage
+\section*{第 47 题（续）}
+\parttitle{(4)}
+设 $C=(a_i b_j)_{n\times n}$。任意二阶子式均有
+\[
+\begin{vmatrix}a_i b_j&a_i b_\ell\\a_k b_j&a_k b_\ell\end{vmatrix}
+=a_i a_k b_j b_\ell-a_i a_k b_\ell b_j=0.
+\]
+因而 $\rk C\le1$（当 $n=1$ 时也显然成立）。若 $a_i$ 全为零或 $b_j$ 全为零，
+则 $C=O$，秩为 $0$；否则存在 $a_i\ne0$ 及 $b_j\ne0$，一阶子式 $a_i b_j\ne0$。
+所以
+\[
+\ans{\rk C=
+\begin{cases}
+0,&(a_1,\ldots,a_n)=0\ \text{或}\ (b_1,\ldots,b_n)=0,\\
+1,&(a_1,\ldots,a_n)\ne0\ \text{且}\ (b_1,\ldots,b_n)\ne0.
+\end{cases}}
+\]
+
+\problem{第 48 题：初等变换求秩及最高阶非零子式}
+\parttitle{(1)}
+对原矩阵作行变换：
+\[
+A_1=\begin{pmatrix}3&1&0&2\\1&-1&2&-1\\1&3&-4&4\end{pmatrix}
+\xrightarrow{r_1\leftrightarrow r_2}
+\begin{pmatrix}1&-1&2&-1\\3&1&0&2\\1&3&-4&4\end{pmatrix}
+\xrightarrow{\substack{r_2\leftarrow r_2-3r_1\\r_3\leftarrow r_3-r_1}}
+\begin{pmatrix}1&-1&2&-1\\0&4&-6&5\\0&4&-6&5\end{pmatrix}.
+\]
+再作 $r_3\leftarrow r_3-r_2$，得阶梯形矩阵
+\[
+\begin{pmatrix}1&-1&2&-1\\0&4&-6&5\\0&0&0&0\end{pmatrix},
+\qquad \ans{\rk A_1=2}.
+\]
+原矩阵第 $1,2$ 行与第 $1,2$ 列构成的子式为
+\[
+\ans{\begin{vmatrix}3&1\\1&-1\end{vmatrix}=-4\ne0}.
+\]
+
+\parttitle{(3)}
+先对原矩阵作 $r_1\leftrightarrow r_4$，再作
+$r_2\leftarrow r_2-2r_1$、$r_3\leftarrow r_3-3r_1$、$r_4\leftarrow r_4-2r_1$，得
+\[
+A_3=\begin{pmatrix}
+2&1&8&3&7\\2&-3&0&7&-5\\3&-2&5&8&0\\1&0&3&2&0
+\end{pmatrix}
+\longrightarrow
+\begin{pmatrix}
+1&0&3&2&0\\0&-3&-6&3&-5\\0&-2&-4&2&0\\0&1&2&-1&7
+\end{pmatrix}.
+\]
+交换 $r_2,r_4$，再作 $r_3\leftarrow r_3+2r_2$、$r_4\leftarrow r_4+3r_2$，随后
+$r_4\leftarrow r_4-\frac87r_3$，得到
+\[
+\begin{pmatrix}
+1&0&3&2&0\\0&1&2&-1&7\\0&0&0&0&14\\0&0&0&0&16
+\end{pmatrix}
+\longrightarrow
+\begin{pmatrix}
+1&0&3&2&0\\0&1&2&-1&7\\0&0&0&0&14\\0&0&0&0&0
+\end{pmatrix}.
+\]
+故 $\ans{\rk A_3=3}$。原矩阵第 $1,2,4$ 行与第 $1,2,5$ 列构成的子式为
+\[
+\ans{\begin{vmatrix}2&1&7\\2&-3&-5\\1&0&0\end{vmatrix}
+=\begin{vmatrix}1&7\\-3&-5\end{vmatrix}=16\ne0}.
+\]
+
+\newpage
+\section*{第 48 题（续）}
+\parttitle{(5)}
+对原矩阵作 $r_2\leftarrow r_2-2r_1$、$r_3\leftarrow r_3-3r_1$、
+$r_4\leftarrow r_4-r_1$，得到
+\[
+A_5=\begin{pmatrix}1&3&-1&2\\2&-1&2&3\\3&2&1&1\\1&-4&3&5\end{pmatrix}
+\longrightarrow
+\begin{pmatrix}1&3&-1&2\\0&-7&4&-1\\0&-7&4&-5\\0&-7&4&3\end{pmatrix}.
+\]
+再作 $r_3\leftarrow r_3-r_2$、$r_4\leftarrow r_4-r_2$，随后 $r_4\leftarrow r_4+r_3$，得
+\[
+\begin{pmatrix}1&3&-1&2\\0&-7&4&-1\\0&0&0&-4\\0&0&0&4\end{pmatrix}
+\longrightarrow
+\begin{pmatrix}1&3&-1&2\\0&-7&4&-1\\0&0&0&-4\\0&0&0&0\end{pmatrix}.
+\]
+故 $\ans{\rk A_5=3}$。原矩阵第 $1,2,3$ 行与第 $1,2,4$ 列构成的子式为
+\[
+\ans{\begin{vmatrix}1&3&2\\2&-1&3\\3&2&1\end{vmatrix}
+=\begin{vmatrix}1&3&2\\0&-7&-1\\0&0&-4\end{vmatrix}=28\ne0}.
+\]
+
+\problem{第 49 题：用初等变换求逆矩阵}
+\parttitle{(2)}
+记原矩阵为 $M$，对增广矩阵的左右两部分同时作初等行变换：
+\[
+(M\mid E_4)=\left(\begin{array}{rrrr|rrrr}
+3&-2&0&-1&1&0&0&0\\
+0&2&2&1&0&1&0&0\\
+1&-2&-3&-2&0&0&1&0\\
+0&1&2&1&0&0&0&1
+\end{array}\right).
+\]
+先交换 $r_1,r_3$，并交换 $r_2,r_4$，再作 $r_3\leftarrow r_3-3r_1$。
+接着作 $r_1\leftarrow r_1+2r_2$、$r_3\leftarrow r_3-4r_2$、$r_4\leftarrow r_4-2r_2$，得
+\[
+\left(\begin{array}{rrrr|rrrr}
+1&0&1&0&0&0&1&2\\
+0&1&2&1&0&0&0&1\\
+0&0&1&1&1&0&-3&-4\\
+0&0&-2&-1&0&1&0&-2
+\end{array}\right)
+\xrightarrow{r_4\leftarrow r_4+2r_3}
+\left(\begin{array}{rrrr|rrrr}
+1&0&1&0&0&0&1&2\\
+0&1&2&1&0&0&0&1\\
+0&0&1&1&1&0&-3&-4\\
+0&0&0&1&2&1&-6&-10
+\end{array}\right).
+\]
+最后依次作
+\[
+r_3\leftarrow r_3-r_4,\quad
+r_1\leftarrow r_1-r_3,\quad
+r_2\leftarrow r_2-2r_3,\quad
+r_2\leftarrow r_2-r_4,
+\]
+左侧化为 $E_4$，右侧即为 $M^{-1}$。因此
+\[
+\ans{M^{-1}=\begin{pmatrix}
+1&1&-2&-4\\0&1&0&-1\\-1&-1&3&6\\2&1&-6&-10
+\end{pmatrix}}.
+\]
+
+\newpage
+\section*{第 49 题（续）}
+\parttitle{(4)}
+记原矩阵为 $N$。对 $(N\mid E_4)$ 按 $i=4,3,2$ 的顺序作
+$r_i\leftarrow r_i-r_{i-1}$，得
+\[
+\left(\begin{array}{rrrr|rrrr}
+1&0&0&0&1&0&0&0\\
+2&1&0&0&0&1&0&0\\
+3&2&1&0&0&0&1&0\\
+4&3&2&1&0&0&0&1
+\end{array}\right)
+\longrightarrow
+\left(\begin{array}{rrrr|rrrr}
+1&0&0&0&1&0&0&0\\
+1&1&0&0&-1&1&0&0\\
+1&1&1&0&0&-1&1&0\\
+1&1&1&1&0&0&-1&1
+\end{array}\right).
+\]
+再按 $i=4,3,2$ 的顺序作一次相同的变换，得到
+\[
+\left(\begin{array}{rrrr|rrrr}
+1&0&0&0&1&0&0&0\\
+0&1&0&0&-2&1&0&0\\
+0&0&1&0&1&-2&1&0\\
+0&0&0&1&0&1&-2&1
+\end{array}\right).
+\]
+故
+\[
+\ans{N^{-1}=\begin{pmatrix}
+1&0&0&0\\-2&1&0&0\\1&-2&1&0\\0&1&-2&1
+\end{pmatrix}}.
+\]
+
+\problem{第 50 题：解矩阵方程}
+\parttitle{(1)}
+记
+\[
+P=\begin{pmatrix}2&5\\1&3\end{pmatrix},\qquad
+Q=\begin{pmatrix}4&-6\\2&1\end{pmatrix}.
+\]
+因 $|P|=6-5=1\ne0$，故
+\[
+P^{-1}=\begin{pmatrix}3&-5\\-1&2\end{pmatrix}.
+\]
+由 $PX=Q$，在等式两端左乘 $P^{-1}$，得到唯一解
+\[
+\ans{X=P^{-1}Q
+=\begin{pmatrix}3&-5\\-1&2\end{pmatrix}
+\begin{pmatrix}4&-6\\2&1\end{pmatrix}
+=\begin{pmatrix}2&-23\\0&8\end{pmatrix}}.
+\]
+
+\newpage
+\section*{第 50 题（续）}
+\parttitle{(3)}
+题中
+\[
+A=\begin{pmatrix}3&0&1\\1&1&1\\1&1&4\end{pmatrix},\qquad
+B=\begin{pmatrix}2&1&3\\0&1&2\\1&0&3\end{pmatrix}.
+\]
+将 $AX=B+2X$ 移项，得到
+\[
+(A-2E_3)X=B,\qquad
+C:=A-2E_3=\begin{pmatrix}1&0&1\\1&-1&1\\1&1&2\end{pmatrix}.
+\]
+对 $(C\mid B)$ 作行变换：
+\[
+\left(\begin{array}{rrr|rrr}
+1&0&1&2&1&3\\1&-1&1&0&1&2\\1&1&2&1&0&3
+\end{array}\right)
+\xrightarrow{\substack{r_2\leftarrow r_2-r_1\\r_3\leftarrow r_3-r_1}}
+\left(\begin{array}{rrr|rrr}
+1&0&1&2&1&3\\0&-1&0&-2&0&-1\\0&1&1&-1&-1&0
+\end{array}\right).
+\]
+再依次作 $r_2\leftarrow-r_2$、$r_3\leftarrow r_3-r_2$，得
+\[
+\left(\begin{array}{rrr|rrr}
+1&0&1&2&1&3\\0&1&0&2&0&1\\0&0&1&-3&-1&-1
+\end{array}\right)
+\xrightarrow{r_1\leftarrow r_1-r_3}
+\left(\begin{array}{rrr|rrr}
+1&0&0&5&2&4\\0&1&0&2&0&1\\0&0&1&-3&-1&-1
+\end{array}\right).
+\]
+左侧已化为 $E_3$，说明 $C$ 可逆，原方程的唯一解为
+\[
+\ans{X=\begin{pmatrix}5&2&4\\2&0&1\\-3&-1&-1\end{pmatrix}}.
+\]
+代入检验：
+\[
+(A-2E_3)X
+=\begin{pmatrix}1&0&1\\1&-1&1\\1&1&2\end{pmatrix}
+\begin{pmatrix}5&2&4\\2&0&1\\-3&-1&-1\end{pmatrix}
+=\begin{pmatrix}2&1&3\\0&1&2\\1&0&3\end{pmatrix}=B.
+\]
+
+\end{document}
