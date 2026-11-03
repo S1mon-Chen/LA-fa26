@@ -1,0 +1,189 @@
+% 编译（在仓库根目录运行两遍）：
+% xelatex -halt-on-error -output-directory=output/pdf assignments/assignment8/assignment8-sol.tex
+% 中文字体采用 TeX Live 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.05cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第八次作业},pdfsubject={MATH1205：分块矩阵、可逆性与乘积的秩}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.2em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.08}
+\linespread{1.12}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第八次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.4ex,afterskip=0.6ex},
+subsection={format=\normalsize\bfseries,beforeskip=1ex,afterskip=0.5ex}}
+\newcommand{\rk}{\operatorname{r}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\problem}[1]{\Needspace{9\baselineskip}\section*{#1}}
+
+\begin{document}
+\setlength{\abovedisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}
+\begin{center}
+{\LARGE\bfseries 线性代数第八次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.4em}
+题号沿用原题。$E_k$ 为 $k$ 阶单位矩阵，$O$ 为相应尺寸的零矩阵，
+$A^*$ 为 $A$ 的伴随矩阵，$\rk(A)$ 表示矩阵 $A$ 的秩。
+
+\problem{第 51 题：分块矩阵的乘积与可逆性}
+已知 $A$ 为 $n$ 阶可逆矩阵，$\alpha$ 为 $n\times1$ 列矩阵，$b$ 为常数，且
+\[
+P=\begin{pmatrix}E_n&O\\-\alpha^T A^*&|A|\end{pmatrix},
+\qquad
+Q=\begin{pmatrix}A&\alpha\\\alpha^T&b\end{pmatrix}.
+\]
+\textbf{(1) 计算并化简 $PQ$。}
+利用伴随矩阵的恒等式 $A^*A=|A|E_n$，得
+\[
+\begin{aligned}
+PQ
+&=\begin{pmatrix}
+A&\alpha\\
+-\alpha^T A^*A+|A|\alpha^T&-\alpha^T A^*\alpha+b|A|
+\end{pmatrix}\\[2pt]
+&=\ans{\begin{pmatrix}
+A&\alpha\\
+O&b|A|-\alpha^T A^*\alpha
+\end{pmatrix}}.
+\end{aligned}
+\]
+又因 $A^*=|A|A^{-1}$，右下角也可写为
+$|A|\bigl(b-\alpha^T A^{-1}\alpha\bigr)$。
+
+\textbf{(2) 证明 $Q$ 可逆的充分必要条件。}
+矩阵 $P$ 为分块下三角矩阵，故
+\[
+|P|=|E_n|\,|A|=|A|\ne0.
+\]
+由第 (1) 问及分块上三角矩阵的行列式公式，
+\[
+|P|\,|Q|=|PQ|
+=|A|^2\bigl(b-\alpha^T A^{-1}\alpha\bigr).
+\]
+约去非零因子 $|A|$，得到
+\[
+|Q|=|A|\bigl(b-\alpha^T A^{-1}\alpha\bigr).
+\]
+因此
+\[
+\ans{Q\text{ 可逆}\iff |Q|\ne0
+\iff \alpha^T A^{-1}\alpha\ne b}.
+\]
+
+\problem{第 68 题：由 $E-AB$ 可逆推出 $E-BA$ 可逆}
+设 $C=(E-AB)^{-1}$，并令 $D=E+BCA$。由
+\[
+(E-BA)B=B(E-AB)
+\]
+可得
+\[
+\begin{aligned}
+(E-BA)D
+&=(E-BA)(E+BCA)\\
+&=E-BA+B(E-AB)CA\\
+&=E-BA+BA=E.
+\end{aligned}
+\]
+于是 $|E-BA|\,|D|=1$，从而 $|E-BA|\ne0$，即 $E-BA$ 可逆。
+同时得到
+\[
+\ans{(E-BA)^{-1}=E+B(E-AB)^{-1}A}.
+\]
+
+\newpage
+\problem{第 69 题：证明 $|\lambda E-AB|=|\lambda E-BA|$}
+其中 $A,B$ 均为 $n$ 阶方阵，$\lambda\ne0$。
+构造 $2n$ 阶分块矩阵
+\[
+M=\begin{pmatrix}\lambda E-AB&A\\O&\lambda E\end{pmatrix}.
+\]
+先将第二块列右乘 $B$ 加到第一块列，再将第一块行左乘 $-B$ 加到第二块行：
+\[
+\begin{pmatrix}\lambda E-AB&A\\O&\lambda E\end{pmatrix}
+\xrightarrow{C_1\leftarrow C_1+C_2B}
+\begin{pmatrix}\lambda E&A\\\lambda B&\lambda E\end{pmatrix}
+\xrightarrow{R_2\leftarrow R_2-BR_1}
+\begin{pmatrix}\lambda E&A\\O&\lambda E-BA\end{pmatrix}.
+\]
+这里 $R_i,C_j$ 分别表示块行、块列。两次变换均为第三类分块初等变换，
+不改变行列式，因此
+\[
+|\lambda E-AB|\,|\lambda E|
+=|\lambda E|\,|\lambda E-BA|.
+\]
+由于 $|\lambda E|=\lambda^n\ne0$，约去该因子，得
+\[
+\ans{|\lambda E-AB|=|\lambda E-BA|}.
+\]
+
+\problem{第 70 题：矩阵乘积的秩不等式}
+设 $A$ 为 $m\times n$ 矩阵，$B$ 为 $n\times s$ 矩阵。证明
+\[
+\rk(A)+\rk(B)-n\le\rk(AB)\le\min\{\rk(A),\rk(B)\}.
+\]
+\textbf{(1) 上界。}
+对分块矩阵作初等变换：
+\[
+\begin{pmatrix}A&AB\end{pmatrix}
+\xrightarrow{C_2\leftarrow C_2-C_1B}
+\begin{pmatrix}A&O\end{pmatrix},
+\qquad
+\begin{pmatrix}B\\AB\end{pmatrix}
+\xrightarrow{R_2\leftarrow R_2-AR_1}
+\begin{pmatrix}B\\O\end{pmatrix}.
+\]
+初等变换保持秩，且子矩阵的秩不超过原矩阵的秩，所以
+\[
+\rk(AB)\le\rk\begin{pmatrix}A&AB\end{pmatrix}=\rk(A),
+\qquad
+\rk(AB)\le\rk\begin{pmatrix}B\\AB\end{pmatrix}=\rk(B).
+\]
+故 $\rk(AB)\le\min\{\rk(A),\rk(B)\}$。
+
+\textbf{(2) 下界。}
+记 $r=\rk(A)$。由矩阵的等价标准形，存在 $m$ 阶、$n$ 阶可逆矩阵 $U,V$，使
+\[
+UAV=\begin{pmatrix}E_r&O\\O&O\end{pmatrix}.
+\]
+将 $V^{-1}B$ 按前 $r$ 行和其余 $n-r$ 行分块，记作
+\[
+V^{-1}B=\begin{pmatrix}B_1\\B_2\end{pmatrix},
+\qquad B_1\in\mathbb{F}^{r\times s},\quad
+B_2\in\mathbb{F}^{(n-r)\times s}.
+\]
+于是
+\[
+UAB=(UAV)(V^{-1}B)
+=\begin{pmatrix}E_r&O\\O&O\end{pmatrix}
+\begin{pmatrix}B_1\\B_2\end{pmatrix}
+=\begin{pmatrix}B_1\\O\end{pmatrix},
+\qquad \rk(AB)=\rk(B_1).
+\]
+只在 $B_1$ 的行之间作初等行变换，将其化为阶梯形。这一部分恰有
+$\rk(B_1)$ 个非零行，而 $B_2$ 部分至多有 $n-r$ 个非零行。因此
+\[
+\rk(B)=\rk(V^{-1}B)
+\le\rk(B_1)+(n-r)
+=\rk(AB)+n-\rk(A).
+\]
+移项并结合上界，即得
+\[
+\ans{\rk(A)+\rk(B)-n\le\rk(AB)
+\le\min\{\rk(A),\rk(B)\}}.
+\]
+上述分块允许零行或零列；$r=0$ 或 $r=n$ 时结论同样成立。
+
+\end{document}
