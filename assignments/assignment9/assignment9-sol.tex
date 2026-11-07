@@ -1,0 +1,174 @@
+% 在仓库根目录编译两遍：
+% xelatex -halt-on-error -output-directory=output/pdf assignments/assignment9/assignment9-sol.tex
+% 需先创建 output/pdf；中文使用 TeX Live 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.05cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第九次作业},pdfsubject={MATH1205：向量的线性表示与线性相关性}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.18em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.06}
+\linespread{1.08}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第九次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.2ex,afterskip=0.5ex},
+subsection={format=\normalsize\bfseries,beforeskip=0.9ex,afterskip=0.4ex}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\problem}[1]{\Needspace{7\baselineskip}\section*{#1}}
+\newcommand{\parttitle}[1]{\Needspace{4\baselineskip}\subsection*{#1}}
+
+\begin{document}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
+\begin{center}
+{\LARGE\bfseries 线性代数第九次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.4em}
+题号沿用原题；PDF 首页未标号的题目记为“首题”。
+
+\problem{首题：将 $\beta$ 表示为 $\alpha_1,\alpha_2,\alpha_3$ 的线性组合}
+已知
+\[
+\beta=\begin{pmatrix}1\\2\\3\end{pmatrix},\quad
+\alpha_1=\begin{pmatrix}1\\0\\1\end{pmatrix},\quad
+\alpha_2=\begin{pmatrix}1\\1\\0\end{pmatrix},\quad
+\alpha_3=\begin{pmatrix}1\\1\\1\end{pmatrix}.
+\]
+设 $\beta=x_1\alpha_1+x_2\alpha_2+x_3\alpha_3$，逐分量比较得
+\[
+\begin{cases}
+x_1+x_2+x_3=1,\\
+x_2+x_3=2,\\
+x_1+x_3=3.
+\end{cases}
+\]
+第一式减第二式得 $x_1=-1$，第一式减第三式得 $x_2=-2$，继而 $x_3=4$。
+因此
+\[
+\ans{\beta=-\alpha_1-2\alpha_2+4\alpha_3}.
+\]
+代回可得 $-(1,0,1)^T-2(1,1,0)^T+4(1,1,1)^T=(1,2,3)^T=\beta$。
+
+\problem{第 4 题：含参数的线性表示}
+已知
+\[
+\beta=\begin{pmatrix}1\\2\\-2\\1\end{pmatrix},\quad
+\alpha_1=\begin{pmatrix}1\\0\\1\\0\end{pmatrix},\quad
+\alpha_2=\begin{pmatrix}3\\-1\\2\\1\end{pmatrix},\quad
+\alpha_3=\begin{pmatrix}1\\a\\b\\0\end{pmatrix}.
+\]
+\parttitle{(1) 可以线性表示的条件及指定参数下的表达式}
+设 $\beta=x_1\alpha_1+x_2\alpha_2+x_3\alpha_3$，则
+\[
+\begin{cases}
+x_1+3x_2+x_3=1,\\
+-x_2+ax_3=2,\\
+x_1+2x_2+bx_3=-2,\\
+x_2=1.
+\end{cases}
+\quad\Longleftrightarrow\quad
+\begin{cases}
+x_2=1,\\
+x_1+x_3=-2,\\
+ax_3=3,\\
+(b-1)x_3=-2.
+\end{cases}
+\]
+由 $ax_3=3$ 必有 $a\ne0$，此时 $x_3=3/a$。
+再代入最后一式，得到 $3(b-1)=-2a$。
+反之，若 $a\ne0$ 且 $2a+3b=3$，取
+$x_1=-2-3/a,\ x_2=1,\ x_3=3/a$ 即满足全部方程。故所求充要条件为
+\[
+\ans{a\ne0\quad\text{且}\quad 2a+3b=3}.
+\]
+当 $a=1,\ b=\frac13$ 时，$x_1=-5,\ x_2=1,\ x_3=3$，所以
+\[
+\ans{\beta=-5\alpha_1+\alpha_2+3\alpha_3}.
+\]
+\parttitle{(2) 不能线性表示的条件}
+对第 (1) 问的充要条件取否定，得
+\[
+\ans{a=0\quad\text{或}\quad 2a+3b\ne3}.
+\]
+其中 $a=0$ 时方程 $ax_3=3$ 直接矛盾；特别地，$(a,b)=(0,1)$ 也不能表示。
+
+\newpage
+\problem{第 6 题：判断向量组的线性相关性}
+\parttitle{(1) $\alpha=(2,4)^T,\ \beta=(1,0)^T,\ \gamma=(1,-1)^T$}
+直接计算有
+\[
+\alpha-6\beta+4\gamma
+=\begin{pmatrix}2\\4\end{pmatrix}
+-6\begin{pmatrix}1\\0\end{pmatrix}
++4\begin{pmatrix}1\\-1\end{pmatrix}
+=\begin{pmatrix}0\\0\end{pmatrix}.
+\]
+系数 $1,-6,4$ 不全为零，故该向量组\textbf{线性相关}。
+
+\parttitle{(3) $\alpha=(2,1,-1)^T,\ \beta=(1,-1,1)^T,\ \gamma=(-1,1,2)^T$}
+以三个向量为列构成矩阵，其行列式为
+\[
+\det(\alpha,\beta,\gamma)
+=\begin{vmatrix}2&1&-1\\1&-1&1\\-1&1&2\end{vmatrix}
+=2(-2-1)-(2+1)+(-1)(1-1)=-9\ne0.
+\]
+因此齐次方程 $k_1\alpha+k_2\beta+k_3\gamma=0$ 只有零解，
+该向量组\textbf{线性无关}。
+
+\problem{第 8 题：判断命题并说明理由}
+\textbf{结论：}\quad
+\ans{(1)\text{ 错}\quad(2)\text{ 错}\quad(3)\text{ 对}\quad
+(4)\text{ 错}\quad(5)\text{ 对}\quad(6)\text{ 错}}。
+
+\parttitle{(1) 存在全零系数使线性组合为零，即可推出线性无关：错误}
+对任意向量组，全零系数都使线性组合等于零，不能据此判断线性无关。
+例如取 $\alpha_1=\alpha_2=(1,0)^T$，虽然全零系数满足等式，
+但 $\alpha_1-\alpha_2=0$，故向量组线性相关。
+
+\parttitle{(2) 存在不全为零的系数使线性组合非零，即可推出线性无关：错误}
+仍取 $\alpha_1=\alpha_2=(1,0)^T$。取 $k_1=k_2=1$，则
+$k_1\alpha_1+k_2\alpha_2=(2,0)^T\ne0$，满足命题的前提，
+但 $\alpha_1-\alpha_2=0$，该向量组仍线性相关。
+
+\parttitle{(3) 任意不全为零的系数都使线性组合非零，则线性无关：正确}
+此前提等价于：若 $k_1\alpha_1+\cdots+k_m\alpha_m=0$，
+则必有 $k_1=\cdots=k_m=0$。这正是线性无关的定义。
+
+\parttitle{(4) $\alpha_1$ 不能由其余向量线性表示，则整个向量组线性无关：错误}
+取 $\alpha_1=(1,0)^T,\ \alpha_2=(0,1)^T,\ \alpha_3=(0,1)^T$。
+$\alpha_2,\alpha_3$ 的任意线性组合的第一分量均为零，故不能表示 $\alpha_1$；
+但 $\alpha_2-\alpha_3=0$，所以整个向量组线性相关。
+
+\parttitle{(5) 整组相关且 $\alpha_1$ 不能由其余向量表示，则其余向量相关：正确}
+由整组线性相关，存在不全为零的 $k_1,\ldots,k_m$，使
+$k_1\alpha_1+\cdots+k_m\alpha_m=0$。若 $k_1\ne0$，则
+\[
+\alpha_1=-\frac{k_2}{k_1}\alpha_2-\cdots-\frac{k_m}{k_1}\alpha_m,
+\]
+与 $\alpha_1$ 不能由其余向量线性表示矛盾。因此 $k_1=0$，
+而 $k_2,\ldots,k_m$ 不全为零，并满足
+\[
+k_2\alpha_2+\cdots+k_m\alpha_m=0,
+\]
+故 $\alpha_2,\ldots,\alpha_m$ 线性相关。
+
+\parttitle{(6) $m>2$ 时，任意两个向量都线性无关，则整组线性无关：错误}
+取 $\alpha_1=(1,0)^T,\ \alpha_2=(0,1)^T,\ \alpha_3=(1,1)^T$。
+任意两个向量均不成比例，故两两线性无关；但存在非平凡关系
+\[
+\alpha_1+\alpha_2-\alpha_3=0,
+\]
+所以整个向量组线性相关。
+
+\end{document}
