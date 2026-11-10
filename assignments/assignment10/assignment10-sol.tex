@@ -1,0 +1,217 @@
+% 编译：在仓库根目录创建 output/pdf，然后将下列命令执行两遍。
+% xelatex -halt-on-error -output-directory=output/pdf assignments/assignment10/assignment10-sol.tex
+% 中文字体使用 TeX Live / MacTeX 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第十次作业},pdfsubject={MATH1205：线性无关、极大线性无关组与秩}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.12}
+\linespread{1.1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第十次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.6ex,afterskip=0.7ex}}
+\newcommand{\problem}[1]{\Needspace{6\baselineskip}\section*{#1}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\rank}{\operatorname{r}}
+
+\begin{document}
+\setlength{\abovedisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}
+\begin{center}
+{\LARGE\bfseries 线性代数第十次作业}\par
+\vspace{0.3em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.3em}
+按原 PDF 的页面顺序编号为第 1 至第 7 题。以下均在实数域上讨论。
+
+\problem{第 1 题：循环相邻向量之和的线性相关性}
+设 $\alpha_1,\ldots,\alpha_s\ (s\ge3)$ 线性无关，记
+\[
+\beta_i=\alpha_i+\alpha_{i+1}\quad(1\le i<s),\qquad
+\beta_s=\alpha_s+\alpha_1.
+\]
+若 $k_1\beta_1+\cdots+k_s\beta_s=0$，按 $\alpha_i$ 合并得
+\[
+(k_1+k_s)\alpha_1+\sum_{i=2}^{s}(k_{i-1}+k_i)\alpha_i=0.
+\]
+由原向量组线性无关，
+\[
+k_1+k_s=0,\qquad k_i=-k_{i-1}\ (2\le i\le s).
+\]
+故 $k_i=(-1)^{i-1}k_1$，代入首式得
+$\bigl(1+(-1)^{s-1}\bigr)k_1=0$。
+
+当 $s$ 为奇数时，$2k_1=0$，从而所有 $k_i=0$，新向量组线性无关。
+当 $s$ 为偶数时，有非平凡关系
+\[
+\beta_1-\beta_2+\beta_3-\cdots+\beta_{s-1}-\beta_s=0,
+\]
+所以新向量组线性相关。因此
+\[
+\ans{s\text{ 为奇数时线性无关；}\quad s\text{ 为偶数时线性相关。}}
+\]
+
+\problem{第 2 题：证明变换后的三个向量线性无关}
+已知 $\alpha,\beta,\gamma$ 线性无关。设
+\[
+x(\alpha-\beta)+y(\beta+\gamma)+z(\gamma-\alpha)=0.
+\]
+整理得 $(x-z)\alpha+(-x+y)\beta+(y+z)\gamma=0$。
+由原向量组线性无关，
+\[
+x-z=0,\qquad -x+y=0,\qquad y+z=0.
+\]
+前两式给出 $z=x,\ y=x$，代入第三式得 $2x=0$，故 $x=y=z=0$，
+因此三个新向量\textbf{线性无关}。
+
+\problem{第 3 题：两个向量相关与对应分量成比例的充要条件}
+设 $n\ge2$，$\alpha=(a_1,\ldots,a_n)^T,\ \beta=(b_1,\ldots,b_n)^T$。
+这里“对应分量成比例”指存在同一个实数 $\lambda$，使
+$a_i=\lambda b_i$ 对所有 $i$ 成立，或 $b_i=\lambda a_i$ 对所有 $i$ 成立；
+此表述也包含零向量的情形。
+
+\textbf{必要性。} 若 $\alpha,\beta$ 线性相关，则存在不全为零的 $u,v$，
+使 $u\alpha+v\beta=0$。
+若 $u\ne0$，则 $\alpha=-\frac vu\beta$；
+若 $u=0$，则 $v\ne0$，于是 $\beta=0=0\alpha$。
+两种情形均说明对应分量成比例。
+
+\textbf{充分性。} 若 $\alpha=\lambda\beta$，则
+$\alpha-\lambda\beta=0$，系数 $(1,-\lambda)$ 不全为零；
+若 $\beta=\lambda\alpha$，则同理由 $\beta-\lambda\alpha=0$ 得到非平凡关系。
+故两向量线性相关，充要条件得证。
+
+\newpage
+\problem{第 4 题：能表示基本向量组的 $n$ 个向量线性无关}
+设 $\varepsilon_1,\ldots,\varepsilon_n$ 是 $n$ 维基本向量组，且
+\[
+\varepsilon_j=\sum_{i=1}^n c_{ij}\alpha_i\qquad(j=1,\ldots,n).
+\]
+令 $A=(\alpha_1,\ldots,\alpha_n)$，$D=(c_{ij})_{n\times n}$。
+将上述等式按列排列，得到
+\[
+AD=(\varepsilon_1,\ldots,\varepsilon_n)=I_n.
+\]
+两边取行列式，得
+\[
+\det A\cdot\det D=\det I_n=1.
+\]
+因此 $\det A\ne0$，矩阵 $A$ 的列向量线性无关，即
+\[
+\ans{\alpha_1,\ldots,\alpha_n\text{ 线性无关。}}
+\]
+
+\problem{第 5 题：四个四维向量的极大线性无关组与秩}
+题中
+\[
+\alpha_1=\begin{pmatrix}3\\-5\\2\\1\end{pmatrix},\quad
+\alpha_2=\begin{pmatrix}1\\1\\0\\-5\end{pmatrix},\quad
+\alpha_3=\begin{pmatrix}-1\\3\\1\\3\end{pmatrix},\quad
+\alpha_4=\begin{pmatrix}2\\-4\\-1\\-3\end{pmatrix}.
+\]
+以它们为列组成矩阵
+\[
+A=\begin{pmatrix}
+3&1&-1&2\\
+-5&1&3&-4\\
+2&0&1&-1\\
+1&-5&3&-3
+\end{pmatrix}.
+\]
+对行列式依次作列变换
+$C_1\leftarrow C_1-3C_2$、$C_3\leftarrow C_3+C_2$、
+$C_4\leftarrow C_4-2C_2$，其值不变。沿第一行展开，得到
+\[
+\begin{aligned}
+\det A
+&=\begin{vmatrix}
+0&1&0&0\\-8&1&4&-6\\2&0&1&-1\\16&-5&-2&7
+\end{vmatrix}
+=-\begin{vmatrix}-8&4&-6\\2&1&-1\\16&-2&7\end{vmatrix}\\[2pt]
+&=-\begin{vmatrix}0&8&-10\\2&1&-1\\0&-10&15\end{vmatrix}
+=2\begin{vmatrix}8&-10\\-10&15\end{vmatrix}
+=2(120-100)=40\ne0.
+\end{aligned}
+\]
+其中三阶行列式用了
+$R_1\leftarrow R_1+4R_2$、$R_3\leftarrow R_3-8R_2$。
+故四个向量线性无关，整组就是极大线性无关组，且
+\[
+\ans{\text{极大线性无关组为 }\{\alpha_1,\alpha_2,\alpha_3,\alpha_4\},
+\qquad \rank(A)=4.}
+\]
+
+\newpage
+\problem{第 6 题：求秩、极大线性无关组及其余向量的表示}
+题中
+\[
+\alpha_1=\begin{pmatrix}2\\4\\2\end{pmatrix},\quad
+\alpha_2=\begin{pmatrix}1\\1\\0\end{pmatrix},\quad
+\alpha_3=\begin{pmatrix}2\\3\\1\end{pmatrix},\quad
+\alpha_4=\begin{pmatrix}3\\5\\2\end{pmatrix}.
+\]
+将向量按列排成矩阵，作初等行变换：
+\[
+\begin{aligned}
+A&=\begin{pmatrix}2&1&2&3\\4&1&3&5\\2&0&1&2\end{pmatrix}
+\xrightarrow[\ R_3\leftarrow R_3-R_1\ ]{R_2\leftarrow R_2-2R_1}
+\begin{pmatrix}2&1&2&3\\0&-1&-1&-1\\0&-1&-1&-1\end{pmatrix}\\[3pt]
+&\xrightarrow{R_3\leftarrow R_3-R_2}
+\begin{pmatrix}2&1&2&3\\0&-1&-1&-1\\0&0&0&0\end{pmatrix}
+\sim
+\begin{pmatrix}1&0&\frac12&1\\0&1&1&1\\0&0&0&0\end{pmatrix}.
+\end{aligned}
+\]
+最后一步依次使用 $R_2\leftarrow-R_2$、$R_1\leftarrow R_1-R_2$、
+$R_1\leftarrow\frac12R_1$。非零行有两行，主元在第 $1,2$ 列，因此
+\[
+\ans{\rank(A)=2,\qquad \text{一个极大线性无关组为 }\{\alpha_1,\alpha_2\}.}
+\]
+初等行变换保持列向量之间的线性关系，由最后的矩阵读出
+\[
+\ans{\alpha_3=\frac12\alpha_1+\alpha_2,\qquad
+\alpha_4=\alpha_1+\alpha_2.}
+\]
+代回验证：
+\[
+\frac12\begin{pmatrix}2\\4\\2\end{pmatrix}
++\begin{pmatrix}1\\1\\0\end{pmatrix}
+=\begin{pmatrix}2\\3\\1\end{pmatrix},\qquad
+\begin{pmatrix}2\\4\\2\end{pmatrix}
++\begin{pmatrix}1\\1\\0\end{pmatrix}
+=\begin{pmatrix}3\\5\\2\end{pmatrix}.
+\]
+
+\problem{第 7 题：横向拼接矩阵的秩不等式}
+设 $A,B$ 均为 $m\times n$ 矩阵，$C=(A,B)$。记
+$\rank(A)=p,\ \rank(B)=q$。
+
+\textbf{下界。} $A$ 和 $B$ 的列向量组都是 $C$ 的列向量组的子组，
+故其中的线性无关组仍是 $C$ 中的线性无关组。因此
+\[
+\rank(A)\le\rank(C),\qquad \rank(B)\le\rank(C),
+\quad\text{即}\quad \max\{\rank(A),\rank(B)\}\le\rank(C).
+\]
+
+\textbf{上界。} 分别从 $A,B$ 的列向量组中取极大线性无关组
+$\xi_1,\ldots,\xi_p$ 和 $\eta_1,\ldots,\eta_q$。
+$C$ 的每一列均可由这两组共 $p+q$ 个向量线性表示，
+所以 $\rank(C)\le p+q$。当某个秩为零时，相应组取空组，论证仍成立。
+
+综上，
+\[
+\ans{\max\{\rank(A),\rank(B)\}\le\rank(C)\le\rank(A)+\rank(B).}
+\]
+\end{document}
