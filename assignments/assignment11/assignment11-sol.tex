@@ -1,0 +1,333 @@
+% 编译：在仓库根目录执行以下命令两遍。
+% mkdir -p output/pdf
+% xelatex -halt-on-error -output-directory=output/pdf assignments/assignment11/assignment11-sol.tex
+% 中文字体使用 TeX Live / MacTeX 自带的 Fandol 字体。
+\documentclass[11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{fancyhdr,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第十一次作业},pdfsubject={MATH1205：线性方程组、基础解系与矩阵的秩}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\setlength{\headheight}{15pt}
+\renewcommand{\arraystretch}{1.1}
+\linespread{1.08}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{MATH1205\quad 线性代数}
+\fancyhead[R]{第十一次作业}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\ctexset{section={format=\large\bfseries,beforeskip=1.6ex,afterskip=0.7ex}}
+\newcommand{\problem}[1]{\Needspace{6\baselineskip}\section*{#1}}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\rank}{\operatorname{r}}
+\newcommand{\Null}{\operatorname{Ker}}
+\newcommand{\Col}{\operatorname{Col}}
+\newcommand{\R}{\mathbb R}
+
+\begin{document}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{4pt plus 1pt minus 1pt}
+\begin{center}
+{\LARGE\bfseries 线性代数第十一次作业}\par
+\vspace{0.25em}
+{\small MATH1205}
+\end{center}
+\vspace{-0.3em}
+按原题号作答，覆盖所给 PDF 中的全部小问。以下均在实数域上讨论。
+
+\problem{第 24 题：求方程组的全部解}
+\textbf{(1)} 系数矩阵经初等行变换化为
+\[
+\begin{aligned}
+A&=\begin{pmatrix}2&-1&3\\1&3&2\\3&-5&4\\1&17&4\end{pmatrix}
+\xrightarrow{R_1\leftrightarrow R_2}
+\begin{pmatrix}1&3&2\\2&-1&3\\3&-5&4\\1&17&4\end{pmatrix}\\[2pt]
+&\xrightarrow[\ R_3\leftarrow R_3-3R_1,\ R_4\leftarrow R_4-R_1\ ]{R_2\leftarrow R_2-2R_1}
+\begin{pmatrix}1&3&2\\0&-7&-1\\0&-14&-2\\0&14&2\end{pmatrix}
+\sim\begin{pmatrix}1&3&2\\0&7&1\\0&0&0\\0&0&0\end{pmatrix}.
+\end{aligned}
+\]
+故 $\rank(A)=2$，方程组等价于 $x+3y+2z=0,\ 7y+z=0$。
+令 $y=t$，得 $x=11t,\ z=-7t$。因此一个基础解系及全部解分别为
+\[
+\ans{\eta=\begin{pmatrix}11\\1\\-7\end{pmatrix},\qquad
+\begin{pmatrix}x\\y\\z\end{pmatrix}=t\eta,\quad t\in\R.}
+\]
+
+\textbf{(3)} 前两个方程的“第一式的两倍减第二式”给出
+\[
+x+4y-3z=2\cdot1-4=-2,
+\]
+而第三个方程要求 $x+4y-3z=7$，二者矛盾。因此
+\[
+\ans{\text{该方程组无解，解集为 }\varnothing.}
+\]
+
+\problem{第 26 题：基础解系与公共非零解}
+\textbf{(1)} 方程组 (I) 为 $x_1+x_2=0,\ x_2-x_4=0$。
+令 $x_2=s,\ x_3=t$，其通解为
+\[
+x=s\begin{pmatrix}-1\\1\\0\\1\end{pmatrix}
++t\begin{pmatrix}0\\0\\1\\0\end{pmatrix},\qquad s,t\in\R.
+\]
+两个系数向量线性无关，故它们构成 (I) 的一个基础解系。
+
+\textbf{(2)} 方程组 (II) 的任一解为
+\[
+x=c_1\begin{pmatrix}0\\1\\1\\0\end{pmatrix}
++c_2\begin{pmatrix}-1\\2\\2\\1\end{pmatrix}
+=\begin{pmatrix}-c_2\\c_1+2c_2\\c_1+2c_2\\c_2\end{pmatrix}.
+\]
+代入 (I)，两式都化为 $c_1+c_2=0$。故存在公共非零解，且全部为
+\[
+\ans{x=t\begin{pmatrix}-1\\1\\1\\1\end{pmatrix},\qquad t\in\R\setminus\{0\}.}
+\]
+
+\newpage
+\problem{第 28 题 (1)：含参数方程组的解的分类}
+方程组为
+\[
+\begin{cases}
+ax+y+z=4,\\
+x+by+z=3,\\
+x+2by+z=4.
+\end{cases}
+\]
+第三式减第二式得 $by=1$，故 $b=0$ 时无解。
+当 $b\ne0$ 时，原方程组等价于
+\[
+y=\frac1b,\qquad x+z=2,\qquad (a-1)x=2-\frac1b.
+\]
+于是有以下三种情形。
+
+\textbf{唯一解：} $a\ne1,\ b\ne0$ 时，
+\[
+\ans{(x,y,z)=\left(\frac{2b-1}{b(a-1)},\ \frac1b,\
+2-\frac{2b-1}{b(a-1)}\right).}
+\]
+
+\textbf{无穷多解：} $a=1,\ b=\tfrac12$ 时，$y=2,\ x+z=2$，全部解为
+\[
+\ans{\begin{pmatrix}x\\y\\z\end{pmatrix}
+=\begin{pmatrix}0\\2\\2\end{pmatrix}
++t\begin{pmatrix}1\\0\\-1\end{pmatrix},\qquad t\in\R.}
+\]
+
+\textbf{无解：} $b=0$，或 $a=1,\ b\notin\{0,\tfrac12\}$ 时无解。
+后者因为 $0=2-1/b$ 不成立。三类条件互斥且覆盖所有 $a,b$。
+
+\problem{第 29 题：范德蒙德型方程组}
+\textbf{(1)} 若 $a_1,a_2,a_3,a_4$ 两两不同，则增广矩阵的行列式为
+\[
+\det\begin{pmatrix}
+1&a_1&a_1^2&a_1^3\\
+1&a_2&a_2^2&a_2^3\\
+1&a_3&a_3^2&a_3^3\\
+1&a_4&a_4^2&a_4^3
+\end{pmatrix}
+=\prod_{1\le i<j\le4}(a_j-a_i)\ne0.
+\]
+因此增广矩阵的秩为 $4$，而系数矩阵只有三列，秩至多为 $3$。
+两者秩不等，故原方程组\textbf{无解}。
+
+\textbf{(2)} 当 $a_1=a_3=a,\ a_2=a_4=-a,\ a\ne0$ 时，只有两个不同的方程：
+\[
+\begin{cases}x_1+ax_2+a^2x_3=a^3,\\x_1-ax_2+a^2x_3=-a^3.\end{cases}
+\quad\Longleftrightarrow\quad
+\begin{cases}x_1+a^2x_3=0,\\x_2=a^2.\end{cases}
+\]
+所以，暂不使用给定的两个解时，通解为
+\[
+x=\begin{pmatrix}0\\a^2\\0\end{pmatrix}
++s\begin{pmatrix}-a^2\\0\\1\end{pmatrix},\qquad s\in\R.
+\]
+题设另给 $\eta_1=c_1(-1,1,1)^T,\ \eta_2=c_1(1,1,-1)^T$ 都是解。
+由 $\eta_1$ 的第二分量得 $c_1=a^2\ne0$，再代入第一式得
+$c_1(a^2-1)=0$，故 $a^2=1,\ c_1=1$。
+此时 $\eta_2$ 也满足方程组。因而在完整题设下，全部解为
+\[
+\ans{x=\begin{pmatrix}0\\1\\0\end{pmatrix}
++s\begin{pmatrix}-1\\0\\1\end{pmatrix},\qquad s\in\R.}
+\]
+等价地，可利用给定的两个解写成
+$x=\eta_1+t(\eta_2-\eta_1)=(-1+2t,1,1-2t)^T$，$t\in\R$。
+
+\newpage
+\problem{第 30 题：判断命题并说明理由}
+\textbf{(1) 错误。} 与基础解系等价的向量组只保证张成同一解空间，
+不保证线性无关。例如
+\[
+\eta_1,\ \eta_2,\ \eta_3,\ \eta_1+\eta_2
+\]
+与 $\eta_1,\eta_2,\eta_3$ 等价，却线性相关，因而不是基础解系。
+若另外限定等价组也恰有三个向量，则该组才必为基础解系。
+
+\medskip
+\textbf{(2) 错误。} $m<n$ 只能保证\emph{有解时}有无穷多解，不能保证相容。
+例如取
+\[
+A=\begin{pmatrix}1&0&0\\0&0&0\end{pmatrix},\qquad
+\beta=\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+此时 $m=2<n=3,\ \beta\ne0$，但方程组包含 $0=1$，无解。
+
+\medskip
+\textbf{(3) 错误。} $\rank(A)=n$ 只能保证\emph{有解时}唯一。
+例如取
+\[
+A=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+\beta=\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+此时 $n=1,\ \rank(A)=1=n$，但 $Ax=\beta$ 要求 $x=0$ 且 $0=1$，故无解。
+
+\medskip
+\textbf{(4) 正确。} 因为增广矩阵仍只有 $m$ 行，所以
+\[
+m=\rank(A)\le\rank(A,\beta)\le m.
+\]
+故 $\rank(A,\beta)=\rank(A)$，对任意 $\beta\in\R^m$ 都有解。
+
+\medskip
+\textbf{(5) 正确。} 先证明 $\rank(A^TA)=\rank(A)$。
+显然 $Ax=0$ 推出 $A^TAx=0$；反之，若 $A^TAx=0$，则
+\[
+0=x^TA^TAx=(Ax)^T(Ax)=\sum_{i=1}^{m}(Ax)_i^2,
+\]
+由实数平方和为零可得 $Ax=0$。两个齐次方程组同解，且未知数个数相同，
+故由解空间维数公式得 $\rank(A^TA)=\rank(A)$。于是
+\[
+\begin{aligned}
+\rank(A^TA)
+&\le\rank(A^TA,A^T\beta)\\
+&=\rank\bigl(A^T(A,\beta)\bigr)
+\le\rank(A^T)=\rank(A)=\rank(A^TA).
+\end{aligned}
+\]
+所以系数矩阵与增广矩阵同秩，$(A^TA)x=A^T\beta$ 必有解。
+
+\medskip
+\textbf{(6) 错误。} $Ax=0$ 只有零解，等价于 $\rank(A)=n$，
+仍不能保证非齐次方程组有解。第 (3) 问的反例同样适用：
+$Ax=0$ 只有零解，而 $Ax=\beta$ 无解。
+
+\medskip
+因此，六个命题的判断依次为
+\[
+\ans{\text{错，错，错，对，对，错。}}
+\]
+
+\newpage
+\problem{第 32 题：用代数余子式构造基础解系}
+已知 $\det A=0$，且第 $i$ 行某元素的代数余子式 $A_{ij}\ne0$。
+这说明存在一个非零的 $n-1$ 阶子式，故
+\[
+n-1\le\rank(A)<n,\qquad\text{即}\quad\rank(A)=n-1.
+\]
+因此 $Ax=0$ 的解空间维数为 $n-\rank(A)=1$。
+
+令 $v=(A_{i1},A_{i2},\ldots,A_{in})^T$。
+注意 $v$ 是伴随矩阵 $\operatorname{adj}(A)$ 的第 $i$ 列。
+由伴随矩阵恒等式
+\[
+A\operatorname{adj}(A)=(\det A)I_n=0
+\]
+可知 $Av=0$。又因 $v$ 的第 $j$ 个分量 $A_{ij}\ne0$，故 $v\ne0$。
+一维解空间中的任意一个非零向量都构成一组基，所以
+\[
+\ans{\bigl\{(A_{i1},A_{i2},\ldots,A_{in})^T\bigr\}
+\text{ 是 }Ax=0\text{ 的一个基础解系。}}
+\]
+
+\problem{第 34 题：非齐次解与基础解系的关系}
+已知 $A\xi=\beta\ne0$，且 $\eta_1,\ldots,\eta_r$ 是 $Ax=0$ 的一个基础解系。
+
+\textbf{(1)} 设
+\[
+k_1\eta_1+\cdots+k_r\eta_r+k\xi=0.
+\]
+左乘 $A$ 得 $k\beta=0$。由 $\beta\ne0$，得 $k=0$。
+再由 $\eta_1,\ldots,\eta_r$ 线性无关，得 $k_1=\cdots=k_r=0$。
+故 $\eta_1,\ldots,\eta_r,\xi$ \textbf{线性无关}。
+
+\textbf{(2)} 设 $c_0\xi+\sum_{i=1}^r c_i(\eta_i+\xi)=0$，整理为
+\[
+\sum_{i=1}^r c_i\eta_i+\left(c_0+\sum_{i=1}^r c_i\right)\xi=0.
+\]
+由第 (1) 问，$c_i=0\ (1\le i\le r)$，且 $c_0+\sum_i c_i=0$，
+所以 $c_0=0$。故 $\xi,\eta_1+\xi,\ldots,\eta_r+\xi$ \textbf{线性无关}。
+
+\textbf{(3)} 对任一解 $\gamma$，有 $A(\gamma-\xi)=0$。
+由于 $\eta_1,\ldots,\eta_r$ 是基础解系，存在 $t_1,\ldots,t_r$ 使
+\[
+\gamma=\xi+\sum_{i=1}^r t_i\eta_i.
+\]
+令 $c_i=t_i\ (1\le i\le r)$，$c_0=1-\sum_{i=1}^r t_i$，便得到
+\[
+\ans{\gamma=c_0\xi+\sum_{i=1}^r c_i(\eta_i+\xi),\qquad
+c_0+c_1+\cdots+c_r=1.}
+\]
+反之，任何满足上述系数条件的组合都满足
+$A\gamma=(c_0+\cdots+c_r)\beta=\beta$，故此表示恰好给出全部解。
+
+\newpage
+\problem{第 43 题：实矩阵及其 Gram 矩阵的秩}
+设 $A\in\R^{m\times n}$。
+
+\textbf{(1)} 若 $Ax=0$，则显然 $A^TAx=0$。
+反之，若 $A^TAx=0$，则
+\[
+0=x^TA^TAx=(Ax)^T(Ax)=\lVert Ax\rVert^2.
+\]
+因 $Ax$ 为实向量，范数平方为零当且仅当 $Ax=0$。故
+\[
+\ans{\Null(A)=\Null(A^TA),\quad
+Ax=0\text{ 与 }A^TAx=0\text{ 同解。}}
+\]
+
+\textbf{(2)} 第 (1) 问中的两个方程组都有 $n$ 个未知数，由秩与零空间维数公式，
+\[
+\rank(A)=n-\dim\Null(A)
+=n-\dim\Null(A^TA)=\rank(A^TA).
+\]
+将同一结论用于实矩阵 $A^T\in\R^{n\times m}$，得
+\[
+\rank(A^T)=\rank\bigl((A^T)^TA^T\bigr)=\rank(AA^T).
+\]
+再结合矩阵的行秩等于列秩，即 $\rank(A)=\rank(A^T)$，得到
+\[
+\ans{\rank(A)=\rank(A^TA)=\rank(A^T)=\rank(AA^T).}
+\]
+
+\problem{第 49 题：矩阵幂的秩最终稳定}
+设 $A$ 为 $n$ 阶矩阵，约定 $A^0=I_n$，记
+\[
+V_k=\Col(A^k)\qquad(k=0,1,2,\ldots).
+\]
+由 $A^{k+1}=A^kA$，$A^{k+1}$ 的每一列都是 $A^k$ 的列的线性组合，故
+\[
+V_0\supseteq V_1\supseteq V_2\supseteq\cdots,
+\qquad \dim V_k=\rank(A^k).
+\]
+若某个 $k$ 满足 $\dim V_k=\dim V_{k+1}$，则由包含关系有 $V_k=V_{k+1}$。
+对两边作用 $A$，得到
+\[
+V_{k+1}=A(V_k)=A(V_{k+1})=V_{k+2}.
+\]
+重复此过程可知，从这一步起所有 $V_j$ 相等，秩也不再下降。
+
+现分两种情形：若在 $V_0,V_1,\ldots,V_n$ 中已经出现相邻两项相等，
+则必有 $V_n=V_{n+1}$；若此前每一步都严格缩小，则维数至少下降 $n$ 次，故
+\[
+0\le\dim V_n\le\dim V_0-n=n-n=0.
+\]
+于是 $V_n=\{0\}$，从而 $V_{n+1}=\{0\}$，仍有 $V_n=V_{n+1}$。
+因此总有
+\[
+\ans{\rank(A^n)=\rank(A^{n+1}).}
+\]
+\end{document}
