@@ -1,0 +1,84 @@
+% !TeX program = xelatex
+% 在本文件所在目录运行：xelatex -halt-on-error assignment12-sol.tex
+\documentclass[12pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[left=23mm,right=23mm,top=21mm,bottom=21mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={线性代数第十二次作业},pdfsubject={MATH1205 线性空间与子空间}}
+\ctexset{section={format=\large\bfseries,beforeskip=2ex,afterskip=.8ex}}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\linespread{1.08}
+\newcommand{\R}{\mathbb R}
+\newcommand{\itemanswer}[2]{\par\addvspace{.35\baselineskip}\textbf{(#1)\enspace #2。}\ignorespaces}
+
+\begin{document}
+\noindent{\LARGE\bfseries 线性代数第十二次作业}\hfill{\small MATH1205}\par
+\vspace{.45em}\hrule height .4pt
+
+\section*{第 1 题\quad 实线性空间的判定}
+
+\itemanswer{1}{是}
+零矩阵是对称矩阵。任取 $n$ 阶实对称矩阵 $A,B$ 及 $a,b\in\R$，有
+\[
+  (aA+bB)^{\mathsf T}=aA^{\mathsf T}+bB^{\mathsf T}=aA+bB.
+\]
+因此 $aA+bB$ 仍对称，全体 $n$ 阶实对称矩阵构成 $\R^{n\times n}$ 的子空间。
+
+\itemanswer{2}{否}
+以给定非零向量的方向为横轴。向量 $(1,1)$ 和 $(1,-1)$ 都不平行于横轴，
+但它们的和 $(2,0)$ 平行于横轴，故加法不封闭。若给定的是零向量，
+按零向量与任意向量平行的约定，该集合为空集，也不构成线性空间。
+
+\itemanswer{3}{否}
+按题设，$k\odot\alpha=\mathbf 0$。取 $\alpha\ne\mathbf 0$，
+则 $1\odot\alpha=\mathbf 0\ne\alpha$，违反数乘的单位律。
+
+\itemanswer{4}{是}
+每个复数 $a+bi$ 唯一对应于 $(a,b)\in\R^2$。复数加法对应于坐标逐项相加，
+实数 $k$ 乘以 $a+bi$ 对应于 $(ka,kb)$。两种运算都与 $\R^2$ 的运算一致，
+故 $\mathbb C$ 构成实线性空间。
+
+\section*{第 2 题\quad 函数空间的六个子集}
+
+按题意，$C(\R)$ 由全体实函数 $f\colon\R\to\R$ 构成。零函数属于 $W_1,\ldots,W_5$。
+对每个 $i=1,\ldots,5$，任取 $f,g\in W_i$ 和 $a,b\in\R$。由子空间判据，只需验证 $h=af+bg$ 仍属于 $W_i$。
+
+\itemanswer{1}{是}
+若 $f,g$ 连续，由极限的线性性，$h$ 在 $\R$ 上也连续，故 $h\in W_1$。
+
+\itemanswer{2}{是}
+若 $f,g$ 处处可微，则 $h$ 处处可微且 $h'=af'+bg'$，故 $h\in W_2$。
+
+\itemanswer{3}{是}
+若 $f,g$ 为偶函数，则 $h(-x)=af(x)+bg(x)=h(x)$，故 $h\in W_3$。
+
+\itemanswer{4}{是}
+若 $f,g$ 为奇函数，则 $h(-x)=-af(x)-bg(x)=-h(x)$，故 $h\in W_4$。
+
+\itemanswer{5}{是}
+对 $f,g\in W_5$，利用 $f(0)=f(1)$ 和 $g(0)=g(1)$，可得
+\[
+  h(0)=af(0)+bg(0)=af(1)+bg(1)=h(1).
+\]
+因此 $h\in W_5$。
+
+\itemanswer{6}{否}
+零函数不满足 $f(1)=1+f(0)$，因为代入后得到 $0=1$。故 $W_6$ 不是子空间。
+
+\section*{第 3 题\quad 两个真子空间的并}
+
+若 $U_1\subseteq U_2$，则 $U_1\cup U_2=U_2\ne V$，因为 $U_2$ 是真子空间。
+若 $U_2\subseteq U_1$，同理。
+
+\smallskip
+若二者互不包含，可取 $u\in U_1\setminus U_2$ 和 $v\in U_2\setminus U_1$。
+令 $w=u+v\in V$。由子空间对减法的封闭性，有
+\[
+  \begin{aligned}
+    w\in U_1 &\ \Longrightarrow\ v=w-u\in U_1, &&\text{与 }v\notin U_1\text{ 矛盾。}\\
+    w\in U_2 &\ \Longrightarrow\ u=w-v\in U_2, &&\text{与 }u\notin U_2\text{ 矛盾。}
+  \end{aligned}
+\]
+因此 $w$ 属于 $V$ 且不属于 $U_1\cup U_2$，从而 $U_1\cup U_2\ne V$。\hfill$\square$
+\end{document}
